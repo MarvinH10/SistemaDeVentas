@@ -35,7 +35,7 @@
                         <div class="nav">
                             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-gears"></i></div>
-                                    Configuración
+                                    Administración
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
@@ -45,6 +45,9 @@
                                     </a>
                                     <a class="nav-link" href="<?php echo base_url; ?>Cajas"><i class="fa-solid fa-boxes-stacked mr-2"></i>
                                         Cajas
+                                    </a>
+                                    <a class="nav-link" href="<?php echo base_url; ?>Cajas"><i class="fas fa-tools mr-2"></i>
+                                        Configuración
                                     </a>
                                 </nav>
                             </div>
