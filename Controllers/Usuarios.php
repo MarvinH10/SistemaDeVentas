@@ -67,29 +67,29 @@
             $encriptar = hash("sha256", $clave);
 
             if(empty($usuario) || empty($nombre) || empty($caja)){
-                $msg = "Todos los campos son obligatorios!";
+                $msg = array('msg' => 'Todos los campos son obligatorios', 'icono' => 'warning');
             }else{
                 if($id == ""){
                     if($clave != $confirmar){
-                        $msg = "Las contraseñas no coinciden";
+                        $msg = array('msg' => 'Las contraseñas no coinciden', 'icono' => 'warning');
                     }else{
                         $data = $this->model->registrarUsuario($usuario, $nombre, $encriptar, $caja);
                     
                         if($data == "Ok"){
-                            $msg = "Si";
+                            $msg = array('msg' => 'Usuario registrado con éxito!', 'icono' => 'success');
                         }else if($data == "Existe"){
-                            $msg = "El usuario ya existe!";
+                            $msg = array('msg' => 'El usuario ya existe!', 'icono' => 'warning');
                         }else{
-                            $msg = "Error al registrar el usuario!";
+                            $msg = array('msg' => 'Error al registrar el usuario!', 'icono' => 'error');
                         }
                     }
                 }else{
                     $data = $this->model->modificarUsuario($usuario, $nombre, $caja, $id);
                     
                     if($data == "Modificado"){
-                        $msg = "Modificado";
+                        $msg = array('msg' => 'Usuario modificado con éxito!', 'icono' => 'success');
                     }else{
-                        $msg = "Error al modificar el usuario!";
+                        $msg = array('msg' => 'Error al modificar el usuario!', 'icono' => 'error');
                     }
                 }
                 
@@ -108,9 +108,9 @@
             $data = $this->model->accionUser(0, $id);
             
             if($data == 1){
-                $msg = "Ok";
+                $msg = array('msg' => 'Usuario dado de baja!', 'icono' => 'success');
             }else{
-                $msg = "Error al eliminar el usuario!";
+                $msg = array('msg' => 'Error al eliminar el usuario!', 'icono' => 'error');
             }
             echo json_encode($msg, JSON_UNESCAPED_UNICODE);
             die();
@@ -120,9 +120,38 @@
             $data = $this->model->accionUser(1, $id);
             
             if($data == 1){
-                $msg = "Ok";
+                $msg = array('msg' => 'Usuario reactivado con éxito!', 'icono' => 'success');
             }else{
-                $msg = "Error al reactivar el usuario!";
+                $msg = array('msg' => 'Error al reactivar el usuario!', 'icono' => 'error');
+            }
+            echo json_encode($msg, JSON_UNESCAPED_UNICODE);
+            die();
+        }
+
+        public function cambiarPass(){
+            $actual = $_POST['clave_actual'];
+            $nueva = $_POST['clave_nueva'];
+            $confirmar = $_POST['confirmar_clave'];
+            if(empty($actual) || empty($nueva) || empty($confirmar)){
+                $msg = array('msg' => 'Todos los campos son obligatorios!', 'icono' => 'warning');
+            }else{
+                if($nueva != $confirmar){
+                    $msg = array('msg' => 'Las contraseñas no coinciden!', 'icono' => 'warning');
+                }else{
+                    $id = $_SESSION['id_usuario'];
+                    $hash = hash("sha256", $actual);
+                    $data = $this->model->getPass($hash, $id);
+                    if(!empty($data)){
+                        $verificar = $this->model->modificarPass(hash("sha256", $nueva), $id);
+                        if($verificar == 1){
+                            $msg = array('msg' => 'Contraseña modificada con éxito!', 'icono' => 'success');
+                        }else{
+                            $msg = array('msg' => 'Error al modificar la contraseña!', 'icono' => 'error');
+                        }
+                    }else{
+                        $msg = array('msg' => 'La contraseña actual es incorrecta!', 'icono' => 'warning');
+                    }
+                }
             }
             echo json_encode($msg, JSON_UNESCAPED_UNICODE);
             die();

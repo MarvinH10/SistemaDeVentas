@@ -40,25 +40,25 @@
             $id = $_POST['id'];
 
             if(empty($dni) || empty($nombre) || empty($telefono) || empty($direccion)){
-                $msg = "Todos los campos son obligatorios!";
+                $msg = array('msg' => 'Todos los campos son obligatorios!', 'icono' => 'warning');
             }else{  
                 if($id == ""){
                         $data = $this->model->registrarCliente($dni, $nombre, $telefono, $direccion);
                     
                         if($data == "Ok"){
-                            $msg = "Si";
+                            $msg = array('msg' => 'Se registro correctamente al cliente!', 'icono' => 'success');
                         }else if($data == "Existe"){
-                            $msg = "El dni ya existe!";
+                            $msg = array('msg' => 'El dni ya existe!', 'icono' => 'warning');
                         }else{
-                            $msg = "Error al registrar el cliente!";
+                            $msg = array('msg' => 'Error al registrar al cliente!', 'icono' => 'error');
                         }
                 }else{
                     $data = $this->model->modificarCliente($dni, $nombre, $telefono, $direccion, $id);
                     
                     if($data == "Modificado"){
-                        $msg = "Modificado";
+                        $msg = array('msg' => 'Se modifico correctamente al cliente!', 'icono' => 'success');
                     }else{
-                        $msg = "Error al modificar el cliente!";
+                        $msg = array('msg' => 'Error al modificar al cliente!', 'icono' => 'error');
                     }
                 }
                 
@@ -77,9 +77,9 @@
             $data = $this->model->accionClient(0, $id);
             
             if($data == 1){
-                $msg = "Ok";
+                $msg = array('msg' => 'Se elimino correctamente al cliente!', 'icono' => 'success');
             }else{
-                $msg = "Error al eliminar el cliente!";
+                $msg = array('msg' => 'Error al eliminar el cliente!', 'icono' => 'error');
             }
             echo json_encode($msg, JSON_UNESCAPED_UNICODE);
             die();

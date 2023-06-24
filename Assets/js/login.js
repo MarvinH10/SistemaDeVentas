@@ -21,7 +21,7 @@ function formLogin(e){
             if(this.readyState == 4 && this.status == 200){
                 const res = JSON.parse(this.responseText);
                 if(res == "Ok"){
-                    window.location = base_url + "Usuarios";
+                    window.location = base_url + "Administracion/home";
                 }else{
                     document.getElementById("alerta").classList.remove("d-none");
                     document.getElementById("alerta").innerHTML = res;

@@ -1,5 +1,6 @@
-let tblUsuarios, tblCajas, tblClientes, tblMedidas, tblCategorias, tblProductos, t_historial_c;
+let tblUsuarios, tblCajas, tblClientes, tblMedidas, tblCategorias, tblProductos, t_historial_c, t_historial_v;
 document.addEventListener("DOMContentLoaded", function(){
+    $('#cliente').select2();
     //tblUsuarios
     tblUsuarios = $('#tblUsuarios').DataTable( {
         ajax: {
@@ -25,6 +26,62 @@ document.addEventListener("DOMContentLoaded", function(){
             {
                 'data' : 'acciones'
             }
+        ],
+        dom: "<'row'<'col-sm-4'l><'col-sm-4 text-center'B><'col-sm-4'f>>" +
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-5'i><'col-sm-7' p>>",
+        buttons: [{
+            //Botón para Excel
+            extend: 'excelHtml5',
+            footer: true,
+            title: 'Archivo',
+            filename: 'Export_File',
+
+            //Aquí es donde generas el botón personalizado
+            text: '<span class="badge badge-success"><i class="fas fa-file-excel"></i></span>'
+        },
+        //Botón para PDF
+        {
+            extend: 'pdfHtml5',
+            download: 'open',
+            footer: true,
+            title: 'Reporte de usuarios',
+            filename: 'Reporte de usuarios',
+            text: '<span class="badge  badge-danger"><i class="fas fa-file-pdf"></i></span>',
+            exportOptions: {
+                columns: [0, ':visible']
+            }
+        },
+        //Botón para copiar
+        {
+            extend: 'copyHtml5',
+            footer: true,
+            title: 'Reporte de usuarios',
+            filename: 'Reporte de usuarios',
+            text: '<span class="badge  badge-primary"><i class="fas fa-copy"></i></span>',
+            exportOptions: {
+                columns: [0, ':visible']
+            }
+        },
+        //Botón para print
+        {
+            extend: 'print',
+            footer: true,
+            filename: 'Export_File_print',
+            text: '<span class="badge badge-light"><i class="fas fa-print"></i></span>'
+        },
+        //Botón para cvs
+        {
+            extend: 'csvHtml5',
+            footer: true,
+            filename: 'Export_File_csv',
+            text: '<span class="badge  badge-success"><i class="fas fa-file-csv"></i></span>'
+        },
+        {
+            extend: 'colvis',
+            text: '<span class="badge  badge-info"><i class="fas fa-columns"></i></span>',
+            postfixButtons: ['colvisRestore']
+        }
         ]
     } );
     //tblCajas
@@ -46,6 +103,62 @@ document.addEventListener("DOMContentLoaded", function(){
             {
                 'data' : 'acciones'
             }
+        ],
+        dom: "<'row'<'col-sm-4'l><'col-sm-4 text-center'B><'col-sm-4'f>>" +
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-5'i><'col-sm-7' p>>",
+        buttons: [{
+            //Botón para Excel
+            extend: 'excelHtml5',
+            footer: true,
+            title: 'Archivo',
+            filename: 'Export_File',
+
+            //Aquí es donde generas el botón personalizado
+            text: '<span class="badge badge-success"><i class="fas fa-file-excel"></i></span>'
+        },
+        //Botón para PDF
+        {
+            extend: 'pdfHtml5',
+            download: 'open',
+            footer: true,
+            title: 'Reporte de usuarios',
+            filename: 'Reporte de usuarios',
+            text: '<span class="badge  badge-danger"><i class="fas fa-file-pdf"></i></span>',
+            exportOptions: {
+                columns: [0, ':visible']
+            }
+        },
+        //Botón para copiar
+        {
+            extend: 'copyHtml5',
+            footer: true,
+            title: 'Reporte de usuarios',
+            filename: 'Reporte de usuarios',
+            text: '<span class="badge  badge-primary"><i class="fas fa-copy"></i></span>',
+            exportOptions: {
+                columns: [0, ':visible']
+            }
+        },
+        //Botón para print
+        {
+            extend: 'print',
+            footer: true,
+            filename: 'Export_File_print',
+            text: '<span class="badge badge-light"><i class="fas fa-print"></i></span>'
+        },
+        //Botón para cvs
+        {
+            extend: 'csvHtml5',
+            footer: true,
+            filename: 'Export_File_csv',
+            text: '<span class="badge  badge-success"><i class="fas fa-file-csv"></i></span>'
+        },
+        {
+            extend: 'colvis',
+            text: '<span class="badge  badge-info"><i class="fas fa-columns"></i></span>',
+            postfixButtons: ['colvisRestore']
+        }
         ]
     } );
     //tblClientes
@@ -76,6 +189,62 @@ document.addEventListener("DOMContentLoaded", function(){
             {
                 'data' : 'acciones'
             }
+        ],
+        dom: "<'row'<'col-sm-4'l><'col-sm-4 text-center'B><'col-sm-4'f>>" +
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-5'i><'col-sm-7' p>>",
+        buttons: [{
+            //Botón para Excel
+            extend: 'excelHtml5',
+            footer: true,
+            title: 'Archivo',
+            filename: 'Export_File',
+
+            //Aquí es donde generas el botón personalizado
+            text: '<span class="badge badge-success"><i class="fas fa-file-excel"></i></span>'
+        },
+        //Botón para PDF
+        {
+            extend: 'pdfHtml5',
+            download: 'open',
+            footer: true,
+            title: 'Reporte de usuarios',
+            filename: 'Reporte de usuarios',
+            text: '<span class="badge  badge-danger"><i class="fas fa-file-pdf"></i></span>',
+            exportOptions: {
+                columns: [0, ':visible']
+            }
+        },
+        //Botón para copiar
+        {
+            extend: 'copyHtml5',
+            footer: true,
+            title: 'Reporte de usuarios',
+            filename: 'Reporte de usuarios',
+            text: '<span class="badge  badge-primary"><i class="fas fa-copy"></i></span>',
+            exportOptions: {
+                columns: [0, ':visible']
+            }
+        },
+        //Botón para print
+        {
+            extend: 'print',
+            footer: true,
+            filename: 'Export_File_print',
+            text: '<span class="badge badge-light"><i class="fas fa-print"></i></span>'
+        },
+        //Botón para cvs
+        {
+            extend: 'csvHtml5',
+            footer: true,
+            filename: 'Export_File_csv',
+            text: '<span class="badge  badge-success"><i class="fas fa-file-csv"></i></span>'
+        },
+        {
+            extend: 'colvis',
+            text: '<span class="badge  badge-info"><i class="fas fa-columns"></i></span>',
+            postfixButtons: ['colvisRestore']
+        }
         ]
     } );
     //tblMedidas
@@ -100,6 +269,62 @@ document.addEventListener("DOMContentLoaded", function(){
             {
                 'data' : 'acciones'
             }
+        ],
+        dom: "<'row'<'col-sm-4'l><'col-sm-4 text-center'B><'col-sm-4'f>>" +
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-5'i><'col-sm-7' p>>",
+        buttons: [{
+            //Botón para Excel
+            extend: 'excelHtml5',
+            footer: true,
+            title: 'Archivo',
+            filename: 'Export_File',
+
+            //Aquí es donde generas el botón personalizado
+            text: '<span class="badge badge-success"><i class="fas fa-file-excel"></i></span>'
+        },
+        //Botón para PDF
+        {
+            extend: 'pdfHtml5',
+            download: 'open',
+            footer: true,
+            title: 'Reporte de usuarios',
+            filename: 'Reporte de usuarios',
+            text: '<span class="badge  badge-danger"><i class="fas fa-file-pdf"></i></span>',
+            exportOptions: {
+                columns: [0, ':visible']
+            }
+        },
+        //Botón para copiar
+        {
+            extend: 'copyHtml5',
+            footer: true,
+            title: 'Reporte de usuarios',
+            filename: 'Reporte de usuarios',
+            text: '<span class="badge  badge-primary"><i class="fas fa-copy"></i></span>',
+            exportOptions: {
+                columns: [0, ':visible']
+            }
+        },
+        //Botón para print
+        {
+            extend: 'print',
+            footer: true,
+            filename: 'Export_File_print',
+            text: '<span class="badge badge-light"><i class="fas fa-print"></i></span>'
+        },
+        //Botón para cvs
+        {
+            extend: 'csvHtml5',
+            footer: true,
+            filename: 'Export_File_csv',
+            text: '<span class="badge  badge-success"><i class="fas fa-file-csv"></i></span>'
+        },
+        {
+            extend: 'colvis',
+            text: '<span class="badge  badge-info"><i class="fas fa-columns"></i></span>',
+            postfixButtons: ['colvisRestore']
+        }
         ]
     } );
     //tblCategorias
@@ -121,6 +346,62 @@ document.addEventListener("DOMContentLoaded", function(){
             {
                 'data' : 'acciones'
             }
+        ],
+        dom: "<'row'<'col-sm-4'l><'col-sm-4 text-center'B><'col-sm-4'f>>" +
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-5'i><'col-sm-7' p>>",
+        buttons: [{
+            //Botón para Excel
+            extend: 'excelHtml5',
+            footer: true,
+            title: 'Archivo',
+            filename: 'Export_File',
+
+            //Aquí es donde generas el botón personalizado
+            text: '<span class="badge badge-success"><i class="fas fa-file-excel"></i></span>'
+        },
+        //Botón para PDF
+        {
+            extend: 'pdfHtml5',
+            download: 'open',
+            footer: true,
+            title: 'Reporte de usuarios',
+            filename: 'Reporte de usuarios',
+            text: '<span class="badge  badge-danger"><i class="fas fa-file-pdf"></i></span>',
+            exportOptions: {
+                columns: [0, ':visible']
+            }
+        },
+        //Botón para copiar
+        {
+            extend: 'copyHtml5',
+            footer: true,
+            title: 'Reporte de usuarios',
+            filename: 'Reporte de usuarios',
+            text: '<span class="badge  badge-primary"><i class="fas fa-copy"></i></span>',
+            exportOptions: {
+                columns: [0, ':visible']
+            }
+        },
+        //Botón para print
+        {
+            extend: 'print',
+            footer: true,
+            filename: 'Export_File_print',
+            text: '<span class="badge badge-light"><i class="fas fa-print"></i></span>'
+        },
+        //Botón para cvs
+        {
+            extend: 'csvHtml5',
+            footer: true,
+            filename: 'Export_File_csv',
+            text: '<span class="badge  badge-success"><i class="fas fa-file-csv"></i></span>'
+        },
+        {
+            extend: 'colvis',
+            text: '<span class="badge  badge-info"><i class="fas fa-columns"></i></span>',
+            postfixButtons: ['colvisRestore']
+        }
         ]
     } );
     //tblProductos
@@ -154,7 +435,66 @@ document.addEventListener("DOMContentLoaded", function(){
             {
                 'data' : 'acciones'
             }
-        ]
+        ],
+        language: {
+            "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"
+        },
+        dom: "<'row'<'col-sm-4'l><'col-sm-4 text-center'B><'col-sm-4'f>>" +
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-5'i><'col-sm-7' p>>",
+        buttons: [{
+            //Botón para Excel
+            extend: 'excelHtml5',
+            footer: true,
+            title: 'Archivo',
+            filename: 'Export_File',
+
+            //Aquí es donde generas el botón personalizado
+            text: '<span class="badge badge-success"><i class="fas fa-file-excel"></i></span>'
+        },
+        //Botón para PDF
+        {
+            extend: 'pdfHtml5',
+            download: 'open',
+            footer: true,
+            title: 'Reporte de usuarios',
+            filename: 'Reporte de usuarios',
+            text: '<span class="badge  badge-danger"><i class="fas fa-file-pdf"></i></span>',
+            exportOptions: {
+                columns: [0, ':visible']
+            }
+        },
+        //Botón para copiar
+        {
+            extend: 'copyHtml5',
+            footer: true,
+            title: 'Reporte de usuarios',
+            filename: 'Reporte de usuarios',
+            text: '<span class="badge  badge-primary"><i class="fas fa-copy"></i></span>',
+            exportOptions: {
+                columns: [0, ':visible']
+            }
+        },
+        //Botón para print
+        {
+            extend: 'print',
+            footer: true,
+            filename: 'Export_File_print',
+            text: '<span class="badge badge-light"><i class="fas fa-print"></i></span>'
+        },
+        //Botón para cvs
+        {
+            extend: 'csvHtml5',
+            footer: true,
+            filename: 'Export_File_csv',
+            text: '<span class="badge  badge-success"><i class="fas fa-file-csv"></i></span>'
+        },
+        {
+            extend: 'colvis',
+            text: '<span class="badge  badge-info"><i class="fas fa-columns"></i></span>',
+            postfixButtons: ['colvisRestore']
+        }
+        ]    
     } );
     //t_historial_c
     t_historial_c = $('#t_historial_c').DataTable( {
@@ -173,11 +513,190 @@ document.addEventListener("DOMContentLoaded", function(){
                 'data' : 'fecha'
             },
             {
+                'data' : 'estado'
+            },
+            {
                 'data' : 'acciones'
             }
+        ],
+        language: {
+            "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"
+        },
+        dom: "<'row'<'col-sm-4'l><'col-sm-4 text-center'B><'col-sm-4'f>>" +
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-5'i><'col-sm-7' p>>",
+        buttons: [{
+            //Botón para Excel
+            extend: 'excelHtml5',
+            footer: true,
+            title: 'Archivo',
+            filename: 'Export_File',
+
+            //Aquí es donde generas el botón personalizado
+            text: '<span class="badge badge-success"><i class="fas fa-file-excel"></i></span>'
+        },
+        //Botón para PDF
+        {
+            extend: 'pdfHtml5',
+            download: 'open',
+            footer: true,
+            title: 'Reporte de usuarios',
+            filename: 'Reporte de usuarios',
+            text: '<span class="badge  badge-danger"><i class="fas fa-file-pdf"></i></span>',
+            exportOptions: {
+                columns: [0, ':visible']
+            }
+        },
+        //Botón para copiar
+        {
+            extend: 'copyHtml5',
+            footer: true,
+            title: 'Reporte de usuarios',
+            filename: 'Reporte de usuarios',
+            text: '<span class="badge  badge-primary"><i class="fas fa-copy"></i></span>',
+            exportOptions: {
+                columns: [0, ':visible']
+            }
+        },
+        //Botón para print
+        {
+            extend: 'print',
+            footer: true,
+            filename: 'Export_File_print',
+            text: '<span class="badge badge-light"><i class="fas fa-print"></i></span>'
+        },
+        //Botón para cvs
+        {
+            extend: 'csvHtml5',
+            footer: true,
+            filename: 'Export_File_csv',
+            text: '<span class="badge  badge-success"><i class="fas fa-file-csv"></i></span>'
+        },
+        {
+            extend: 'colvis',
+            text: '<span class="badge  badge-info"><i class="fas fa-columns"></i></span>',
+            postfixButtons: ['colvisRestore']
+        }
+        ]
+    } );
+    //t_historial_v
+    t_historial_v = $('#t_historial_v').DataTable( {
+        ajax: {
+            url: base_url + "Compras/listar_historial_venta",
+            dataSrc: ''
+        },
+        columns: [
+            {
+                'data' : 'id'
+            },
+            {
+                'data' : 'nombre'
+            },
+            {
+                'data' : 'total'
+            },
+            {
+                'data' : 'fecha'
+            },
+            {
+                'data' : 'estado'
+            },
+            {
+                'data' : 'acciones'
+            }
+        ],
+        language: {
+            "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"
+        },
+        dom: "<'row'<'col-sm-4'l><'col-sm-4 text-center'B><'col-sm-4'f>>" +
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-5'i><'col-sm-7' p>>",
+        buttons: [{
+            //Botón para Excel
+            extend: 'excelHtml5',
+            footer: true,
+            title: 'Archivo',
+            filename: 'Export_File',
+
+            //Aquí es donde generas el botón personalizado
+            text: '<span class="badge badge-success"><i class="fas fa-file-excel"></i></span>'
+        },
+        //Botón para PDF
+        {
+            extend: 'pdfHtml5',
+            download: 'open',
+            footer: true,
+            title: 'Reporte de usuarios',
+            filename: 'Reporte de usuarios',
+            text: '<span class="badge  badge-danger"><i class="fas fa-file-pdf"></i></span>',
+            exportOptions: {
+                columns: [0, ':visible']
+            }
+        },
+        //Botón para copiar
+        {
+            extend: 'copyHtml5',
+            footer: true,
+            title: 'Reporte de usuarios',
+            filename: 'Reporte de usuarios',
+            text: '<span class="badge  badge-primary"><i class="fas fa-copy"></i></span>',
+            exportOptions: {
+                columns: [0, ':visible']
+            }
+        },
+        //Botón para print
+        {
+            extend: 'print',
+            footer: true,
+            filename: 'Export_File_print',
+            text: '<span class="badge badge-light"><i class="fas fa-print"></i></span>'
+        },
+        //Botón para cvs
+        {
+            extend: 'csvHtml5',
+            footer: true,
+            filename: 'Export_File_csv',
+            text: '<span class="badge  badge-success"><i class="fas fa-file-csv"></i></span>'
+        },
+        {
+            extend: 'colvis',
+            text: '<span class="badge  badge-info"><i class="fas fa-columns"></i></span>',
+            postfixButtons: ['colvisRestore']
+        }
         ]
     } );
 });
+
+function formCambiarPass(e){
+    e.preventDefault();
+    const actual = document.getElementById('clave_actual').value;
+    const nueva = document.getElementById('clave_nueva').value;
+    const confirmar = document.getElementById('confirmar_clave').value;
+    if(actual == '' || nueva == '' || confirmar == ''){
+        alertas('Todos los campos son obligatorios!', 'warning');
+        return false;
+    }else{
+        if(nueva != confirmar){
+            alertas('Las contraseñas no coinciden!', 'warning');
+            return false;
+        }else{
+            const url = base_url + "Usuarios/cambiarPass";
+            const form = document.getElementById("formCambiarPass");
+            const http = new XMLHttpRequest();
+            http.open("POST", url, true);
+            http.send(new FormData(form));
+            http.onreadystatechange = function(){
+                if(this.readyState == 4 && this.status == 200){
+                    console.log(this.responseText);
+                    const resultado = JSON.parse(this.responseText);
+                    alertas(resultado.msg, resultado.icono);
+                    $("#cambiarPass").modal("hide");
+                    form.reset();
+                }
+            }
+        }
+    }
+}
 
 //Funciones Usuarios
 function formUsuario(){
@@ -192,18 +711,10 @@ function registrarUser(e){
     e.preventDefault();
     const usuario = document.getElementById("usuario");
     const nombre = document.getElementById("nombre");
-    const clave = document.getElementById("clave");
-    const confirmar = document.getElementById("confirmar");
     const caja = document.getElementById("caja");
 
     if(usuario.value == "" || nombre.value == "" || caja.value == ""){
-        Swal.fire({
-            position: 'top-end',
-            icon: 'error',
-            title: 'Todos los campos son obligatorios!',
-            showConfirmButton: false,
-            timer: 3000
-          })
+        alertas('Todos los campos son obligatorios!', 'warning');
     }else{
         const url = base_url + "Usuarios/registrar";
         const form = document.getElementById("formUsuario");
@@ -213,36 +724,9 @@ function registrarUser(e){
         http.onreadystatechange = function(){
             if(this.readyState == 4 && this.status == 200){
                 const resultado = JSON.parse(this.responseText);
-                if(resultado == "Si"){
-                    Swal.fire({
-                        position: 'top-end',
-                        icon: 'success',
-                        title: 'Usuario registrado correctamente!   ',
-                        showConfirmButton: false,
-                        timer: 3000
-                      })
-                      form.reset();
-                      $("#nuevo_usuario").modal("hide");
-                      tblUsuarios.ajax.reload();
-                }else if(resultado == "Modificado"){
-                    Swal.fire({
-                        position: 'top-end',
-                        icon: 'success',
-                        title: 'Usuario modificado correctamente!   ',
-                        showConfirmButton: false,
-                        timer: 3000
-                      })
-                      $("#nuevo_usuario").modal("hide");
-                      tblUsuarios.ajax.reload();
-                }else{
-                    Swal.fire({
-                        position: 'top-end',
-                        icon: 'error',
-                        title: resultado,
-                        showConfirmButton: false,
-                        timer: 3000
-                      })
-                }
+                $("#nuevo_usuario").modal("hide");
+                alertas(resultado.msg, resultado.icono);
+                tblUsuarios.ajax.reload();
             }
         }
     }
@@ -289,20 +773,8 @@ function btnEliminarUser(id){
                 http.onreadystatechange = function(){
                     if(this.readyState == 4 && this.status == 200){
                         const resultado = JSON.parse(this.responseText);
-                        if(resultado == "Ok"){
-                            Swal.fire(
-                                'Mensaje!',
-                                'Usuario eliminado con éxito.',
-                                'success'
-                            )
-                            tblUsuarios.ajax.reload();
-                        }else{
-                            Swal.fire(
-                                'Mensaje!',
-                                resultado,
-                                'error'
-                            )
-                        }
+                        alertas(resultado.msg, resultado.icono);
+                        tblUsuarios.ajax.reload();
                     }
                 }
         }
@@ -329,20 +801,8 @@ function btnReactivarUser(id){
                 http.onreadystatechange = function(){
                     if(this.readyState == 4 && this.status == 200){
                         const resultado = JSON.parse(this.responseText);
-                        if(resultado == "Ok"){
-                            Swal.fire(
-                                'Mensaje!',
-                                'Usuario reactivado con éxito.',
-                                'success'
-                            )
-                            tblUsuarios.ajax.reload();
-                        }else{
-                            Swal.fire(
-                                'Mensaje!',
-                                resultado,
-                                'error'
-                            )
-                        }
+                        alertas(resultado.msg, resultado.icono);
+                        tblUsuarios.ajax.reload();
                     }
                 }
         }
@@ -364,7 +824,7 @@ function registrarBox(e){
     if(caja.value == ""){
         Swal.fire({
             position: 'top-end',
-            icon: 'error',
+            icon: 'warning',
             title: 'Todos los campos son obligatorios!',
             showConfirmButton: false,
             timer: 3000
@@ -527,13 +987,7 @@ function registrarClient(e){
     const direccion = document.getElementById("direccion");
 
     if(dni.value == "" || nombre.value == "" || telefono.value == "" || direccion.value == ""){
-        Swal.fire({
-            position: 'top-end',
-            icon: 'error',
-            title: 'Todos los campos son obligatorios!',
-            showConfirmButton: false,
-            timer: 3000
-          })
+        alertas(resultado.msg, resultado.icono);
     }else{
         const url = base_url + "Clientes/registrar";
         const form = document.getElementById("formCliente");
@@ -544,35 +998,17 @@ function registrarClient(e){
             if(this.readyState == 4 && this.status == 200){
                 const resultado = JSON.parse(this.responseText);
                 if(resultado == "Si"){
-                    Swal.fire({
-                        position: 'top-end',
-                        icon: 'success',
-                        title: 'Cliente registrado correctamente!   ',
-                        showConfirmButton: false,
-                        timer: 3000
-                      })
-                      form.reset();
-                      $("#nuevo_cliente").modal("hide");
-                      tblClientes.ajax.reload();
+                    alertas(resultado.msg, resultado.icono);
+                    form.reset();
+                    $("#nuevo_cliente").modal("hide");
                 }else if(resultado == "Modificado"){
-                    Swal.fire({
-                        position: 'top-end',
-                        icon: 'success',
-                        title: 'Cliente modificado correctamente!   ',
-                        showConfirmButton: false,
-                        timer: 3000
-                      })
-                      $("#nuevo_cliente").modal("hide");
-                      tblClientes.ajax.reload();
+                    alertas(resultado.msg, resultado.icono);
+                    $("#nuevo_cliente").modal("hide");
+                    
                 }else{
-                    Swal.fire({
-                        position: 'top-end',
-                        icon: 'error',
-                        title: resultado,
-                        showConfirmButton: false,
-                        timer: 3000
-                      })
+                    alertas(resultado.msg, resultado.icono);
                 }
+                tblClientes.ajax.reload();
             }
         }
     }
@@ -612,29 +1048,21 @@ function btnEliminarClient(id){
             document.getElementById("titulo").innerHTML = "Actualizar Cliente";
             document.getElementById("btnAccion").innerHTML = "Actualizar";
             
-                const url = base_url + "Clientes/eliminar/" +  id;
-                const http = new XMLHttpRequest();
-                http.open("GET", url, true);
-                http.send();
-                http.onreadystatechange = function(){
-                    if(this.readyState == 4 && this.status == 200){
-                        const resultado = JSON.parse(this.responseText);
-                        if(resultado == "Ok"){
-                            Swal.fire(
-                                'Mensaje!',
-                                'Cliente eliminado con éxito.',
-                                'success'
-                            )
-                            tblClientes.ajax.reload();
-                        }else{
-                            Swal.fire(
-                                'Mensaje!',
-                                resultado,
-                                'error'
-                            )
-                        }
+            const url = base_url + "Clientes/eliminar/" +  id;
+            const http = new XMLHttpRequest();
+            http.open("GET", url, true);
+            http.send();
+            http.onreadystatechange = function(){
+                if(this.readyState == 4 && this.status == 200){
+                    const resultado = JSON.parse(this.responseText);
+                    if(resultado == "Ok"){
+                        alertas(resultado.msg, resultado.icono);
+                    }else{
+                        alertas(resultado.msg, resultado.icono);
                     }
+                    tblClientes.ajax.reload();
                 }
+            }
         }
     })
 }
@@ -1024,13 +1452,7 @@ function registrarProduct(e){
     const id_categoria = document.getElementById("categoria");
 
     if(codigo.value == "" || nombre.value == "" || precio_compra.value == "" || precio_venta.value == ""){
-        Swal.fire({
-            position: 'top-end',
-            icon: 'error',
-            title: 'Todos los campos son obligatorios!',
-            showConfirmButton: false,
-            timer: 3000
-          })
+          alertas('Todos los campos son obligatorios!', 'warning');
     }else{
         const url = base_url + "Productos/registrar";
         const form = document.getElementById("formProducto");
@@ -1041,35 +1463,16 @@ function registrarProduct(e){
             if(this.readyState == 4 && this.status == 200){
                 const resultado = JSON.parse(this.responseText);
                 if(resultado == "Si"){
-                    Swal.fire({
-                        position: 'top-end',
-                        icon: 'success',
-                        title: 'Producto registrado correctamente!   ',
-                        showConfirmButton: false,
-                        timer: 3000
-                      })
-                      form.reset();
-                      $("#nuevo_producto").modal("hide");
-                      tblProductos.ajax.reload();
+                    alertas(resultado.msg, resultado.icono);
+                    form.reset();
+                    $("#nuevo_producto").modal("hide");
                 }else if(resultado == "Modificado"){
-                    Swal.fire({
-                        position: 'top-end',
-                        icon: 'success',
-                        title: 'Producto modificado correctamente!   ',
-                        showConfirmButton: false,
-                        timer: 3000
-                      })
-                      $("#nuevo_producto").modal("hide");
-                      tblProductos.ajax.reload();
+                    alertas(resultado.msg, resultado.icono);
+                    $("#nuevo_producto").modal("hide");
                 }else{
-                    Swal.fire({
-                        position: 'top-end',
-                        icon: 'error',
-                        title: resultado,
-                        showConfirmButton: false,
-                        timer: 3000
-                      })
+                    alertas(resultado.msg, resultado.icono);
                 }
+                tblProductos.ajax.reload();
             }
         }
     }
@@ -1201,34 +1604,88 @@ function deleteImg(){
 }
 function buscarCodigo(e){
     e.preventDefault();
-    if(e.which == 13){
-        const cod = document.getElementById("codigo").value; 
-        const url = base_url + "Compras/buscarCodigo/" +  cod;
-        const http = new XMLHttpRequest();
-        http.open("GET", url, true);
-        http.send();
-        http.onreadystatechange = function(){
-            if(this.readyState == 4 && this.status == 200){
-                const resultado = JSON.parse(this.responseText);
-                if(resultado){
-                    document.getElementById("nombre").value = resultado.descripcion;
-                    document.getElementById("precio").value = resultado.precio_compra;
-                    document.getElementById("id").value = resultado.id;
-                    document.getElementById("cantidad").focus();
-                }else{
-                    Swal.fire({
-                        position: 'top-end',
-                        icon: 'error',
-                        title: 'El producto no existe!',
-                        showConfirmButton: false,
-                        timer: 2000
-                    })
-                    document.getElementById("codigo").value = '';
-                    document.getElementById("codigo").focus();
+    const cod = document.getElementById("codigo").value;
+    if(cod != ''){
+        if(e.which == 13){ 
+            const url = base_url + "Compras/buscarCodigo/" +  cod;
+            const http = new XMLHttpRequest();
+            http.open("GET", url, true);
+            http.send();
+            http.onreadystatechange = function(){
+                if(this.readyState == 4 && this.status == 200){
+                    const resultado = JSON.parse(this.responseText);
+                    if(resultado){
+                        document.getElementById("nombre").value = resultado.descripcion;
+                        document.getElementById("precio").value = resultado.precio_compra;
+                        document.getElementById("id").value = resultado.id;
+                        document.getElementById("cantidad").removeAttribute('disabled');
+                        document.getElementById("cantidad").focus();
+                    }else{
+                        alertas('El producto no existe!', 'warning');
+                        document.getElementById("codigo").value = '';
+                        document.getElementById("codigo").focus();
+                    }
                 }
-            }
-        }  
-    } 
+            }  
+        }
+    }else{
+        alertas('Ingrese el código!', 'warning');
+    }
+}
+function buscarCodigoVenta(e){
+    e.preventDefault();
+    const cod = document.getElementById("codigo").value;
+    if(cod != ''){
+        if(e.which == 13){ 
+            const url = base_url + "Compras/buscarCodigo/" +  cod;
+            const http = new XMLHttpRequest();
+            http.open("GET", url, true);
+            http.send();
+            http.onreadystatechange = function(){
+                if(this.readyState == 4 && this.status == 200){
+                    const resultado = JSON.parse(this.responseText);
+                    if(resultado){
+                        document.getElementById("nombre").value = resultado.descripcion;
+                        document.getElementById("precio").value = resultado.precio_venta;
+                        document.getElementById("id").value = resultado.id;
+                        document.getElementById("cantidad").removeAttribute('disabled');
+                        document.getElementById("cantidad").focus();
+                    }else{
+                        alertas('El producto no existe!', 'warning');
+                        document.getElementById("codigo").value = '';
+                        document.getElementById("codigo").focus();
+                    }
+                }
+            }  
+        }
+    }else{
+        alertas('Ingrese el código!', 'warning');
+    }
+}
+function calcularPrecioVenta(e){
+    e.preventDefault();
+    const cantidad = document.getElementById("cantidad").value;
+    const precio = document.getElementById("precio").value;
+    document.getElementById("sub_total").value = precio * cantidad;
+    if(e.which == 13){
+            if(cantidad > 0){
+            const url = base_url + "Compras/ingresarVenta/";
+            const form = document.getElementById("formVenta");
+            const http = new XMLHttpRequest();
+            http.open("POST", url, true);
+            http.send(new FormData(form));
+            http.onreadystatechange = function(){
+                if(this.readyState == 4 && this.status == 200){
+                    const resultado = JSON.parse(this.responseText);
+                    alertas(resultado.msg, resultado.icono);
+                    form.reset();
+                    cargarDetalleVenta();
+                    document.getElementById('cantidad').setAttribute('disabled', 'disabled');
+                    document.getElementById('codigo').focus();
+                }
+            }  
+        }
+    }
 }
 function calcularPrecio(e){
     e.preventDefault();
@@ -1245,35 +1702,24 @@ function calcularPrecio(e){
             http.onreadystatechange = function(){
                 if(this.readyState == 4 && this.status == 200){
                     const resultado = JSON.parse(this.responseText);
-                    if(resultado == "Ok"){
-                        Swal.fire({
-                            position: 'top-end',
-                            icon: 'success',
-                            title: 'Producto ingresado!   ',
-                            showConfirmButton: false,
-                            timer: 3000
-                        })
-                        form.reset();
-                        cargarDetalle();
-                    }else if(resultado == "Modificado"){
-                        Swal.fire({
-                            position: 'top-end',
-                            icon: 'success',
-                            title: 'Producto actualizado!   ',
-                            showConfirmButton: false,
-                            timer: 3000
-                        })
-                        form.reset();
-                        cargarDetalle();
-                    }
+                    alertas(resultado.msg, resultado.icono);
+                    form.reset();
+                    cargarDetalle();
+                    document.getElementById('cantidad').setAttribute('disabled', 'disabled');
+                    document.getElementById('codigo').focus();
                 }
             }  
         }
     }
 }
-cargarDetalle();
+if(document.getElementById('tblDetalle')){
+    cargarDetalle();   
+}
+if(document.getElementById('tblDetalleVenta')){
+    cargarDetalleVenta();   
+}
 function cargarDetalle(){
-    const url = base_url + "Compras/listar";
+    const url = base_url + "Compras/listar/detalle";
     const http = new XMLHttpRequest();
     http.open("GET", url, true);
     http.send();
@@ -1289,7 +1735,7 @@ function cargarDetalle(){
                     <td>${row['precio']}</td>
                     <td>${row['sub_total']}</td>
                     <td>
-                        <button class="btn btn-danger" type="button" onclick="deleteDetalle(${row['id']})">
+                        <button class="btn btn-danger" type="button" onclick="deleteDetalle(${row['id']}, 1)">
                             <i class="fas fa-trash-alt"></i>
                         </button>
                     </td>
@@ -1300,9 +1746,64 @@ function cargarDetalle(){
         }
     }  
 }
-function deleteDetalle(id){
-    const url = base_url + "Compras/delete/"+id;
-    const form = document.getElementById("formCompra");
+function cargarDetalleVenta(){
+    const url = base_url + "Compras/listar/detalle_temp";
+    const http = new XMLHttpRequest();
+    http.open("GET", url, true);
+    http.send();
+    http.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            const resultado = JSON.parse(this.responseText);
+            let html = '';
+            resultado.detalle.forEach(row => {
+                html += `<tr>
+                    <td>${row['id']}</td>
+                    <td>${row['descripcion']}</td>
+                    <td>${row['cantidad']}</td>
+                    <td><input class="form-control" placeholder="Desc" type="text" onkeyup="calcularDescuento(event, ${row['id']})"></td>
+                    <td>${row['descuento']}</td>
+                    <td>${row['precio']}</td>
+                    <td>${row['sub_total']}</td>
+                    <td>
+                        <button class="btn btn-danger" type="button" onclick="deleteDetalle(${row['id']}, 2)">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </td>
+                </tr>`;
+            });
+            document.getElementById("tblDetalleVenta").innerHTML = html;
+            document.getElementById("total").value = resultado.total_pagar.total;
+        }
+    }  
+}
+function calcularDescuento(e, id){
+    e.preventDefault();
+    if(e.target.value == ''){
+        alertas('Ingrese el descuento!', 'warning');
+    }else{
+        if(e.which == 13){
+            const url = base_url + "Compras/calcularDescuento/" + id + "/" + e.target.value;
+            const http = new XMLHttpRequest();
+            http.open("GET", url, true);
+            http.send();
+            http.onreadystatechange = function(){
+                if(this.readyState == 4 && this.status == 200){
+                    console.log(this.responseText);
+                    const resultado = JSON.parse(this.responseText);
+                    alertas(resultado.msg, resultado.icono);
+                    cargarDetalleVenta();
+                }
+            } 
+        }
+    }
+}
+function deleteDetalle(id, accion){
+    let url;
+    if(accion == 1){
+        url = base_url + "Compras/delete/"+id;
+    }else{
+        url = base_url + "Compras/deleteVenta/"+id;
+    }
     const http = new XMLHttpRequest();
     http.open("GET", url, true);
     http.send();
@@ -1317,7 +1818,11 @@ function deleteDetalle(id){
                     showConfirmButton: false,
                     timer: 3000
                 })
-                cargarDetalle();
+                if(accion == 1){
+                    cargarDetalle();
+                }else{
+                    cargarDetalleVenta();
+                }
             }else{
                 Swal.fire({
                     position: 'top-end',
@@ -1330,7 +1835,7 @@ function deleteDetalle(id){
         }
     }  
 }
-function generarCompra(){
+function procesar(accion){
     Swal.fire({
         title: '¿Estas seguro de realizar la compra?',
         icon: 'warning',
@@ -1341,33 +1846,197 @@ function generarCompra(){
         cancelButtonText: 'Cancelar'
     }).then((result) => {
         if(result.isConfirmed){
-            const url = base_url + "Compras/registrarCompra";
+            let url;
+            if(accion == 1){
+                url = base_url + "Compras/registrarCompra";
+            }else{
+                const id_cliente = document.getElementById('cliente').value;
+                url = base_url + "Compras/registrarVenta/" + id_cliente;
+            }
             const http = new XMLHttpRequest();
             http.open("GET", url, true);
             http.send();
             http.onreadystatechange = function(){
                 if(this.readyState == 4 && this.status == 200){
                     const resultado = JSON.parse(this.responseText);
-                    if(resultado.msg == "Ok"){
-                        Swal.fire(
-                            'Mensaje!',
-                            'Compra generada.',
-                            'success'
-                        )
-                        const ruta = base_url + 'Compras/generarPdf/' + resultado.id_compra;
+                    if(resultado.msg == 'Ok'){
+                        alertas(resultado.msg, resultado.icono);
+                        let ruta
+                        if(accion == 1){
+                            ruta = base_url + 'Compras/generarPdf/' + resultado.id_compra;
+                        }else{
+                            ruta = base_url + 'Compras/generarPdfVenta/' + resultado.id_venta;
+                        }
                         window.open(ruta);
                         setTimeout(() => {
                             window.location.reload();
                         }, 300);
                     }else{
-                        Swal.fire(
-                            'Mensaje!',
-                            resultado,
-                            'error'
-                        )
+                        alertas(resultado.msg, resultado.icono);
                     }
                 }
             }
         }
     })
+}
+function modificarEmpresa(){
+    const form = document.getElementById('formEmpresa');
+    const url = base_url + "Administracion/modificar";
+    const http = new XMLHttpRequest();
+    http.open("POST", url, true);
+    http.send(new FormData(form));
+    http.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            const resultado = JSON.parse(this.responseText);
+            if(resultado == "Ok"){
+                Swal.fire(
+                    'Mensaje!',
+                    'Modificado con éxito.',
+                    'success'
+                )
+            }
+        }
+    }
+}
+function alertas(mensaje, icono){
+    Swal.fire({
+        position: 'top-end',
+        icon: icono,
+        title: mensaje,
+        showConfirmButton: false,
+        timer: 3000
+    })
+}
+if(document.getElementById('stockMinimo')){
+    reporteStock();
+    productosVendidos();
+}
+function reporteStock(){
+    const url = base_url + "Administracion/reporteStock";
+    const http = new XMLHttpRequest();
+    http.open("GET", url, true);
+    http.send();
+    http.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            const resultado = JSON.parse(this.responseText);
+            let nombre = [];
+            let cantidad = [];
+            for (let i = 0; i < resultado.length; i++) {
+                nombre.push(resultado[i]['descripcion']);
+                cantidad.push(resultado[i]['cantidad']);
+            }
+            var ctx = document.getElementById("stockMinimo");
+            var myPieChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: nombre,
+                datasets: [{
+                    data: cantidad,
+                    backgroundColor: ['#007bff', '#dc3545', '#ffc107', '#28a745', '#ff8000', '#00ffff', '#bf00ff'],
+                }],
+            },
+            });
+        }
+    }
+}
+function productosVendidos(){
+    const url = base_url + "Administracion/productosVendidos";
+    const http = new XMLHttpRequest();
+    http.open("GET", url, true);
+    http.send();
+    http.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            const resultado = JSON.parse(this.responseText);
+            let nombre = [];
+            let cantidad = [];
+            for (let i = 0; i < resultado.length; i++) {
+                nombre.push(resultado[i]['descripcion']);
+                cantidad.push(resultado[i]['total']);
+            }
+            var ctx = document.getElementById("productosVendidos");
+            var myPieChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: nombre,
+                datasets: [{
+                    data: cantidad,
+                    backgroundColor: ['#007bff', '#dc3545', '#ffc107', '#28a745', '#ff8000', '#00ffff', '#bf00ff'],
+                }],
+            },
+            });
+        }
+    }
+}
+function btnAnularCompra(id){
+    Swal.fire({
+        title: '¿Estas seguro de anular la compra?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, anularlo!',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if(result.isConfirmed){
+            const url = base_url + "Compras/anularCompra/" + id;
+            const http = new XMLHttpRequest();
+            http.open("GET", url, true);
+            http.send();
+            http.onreadystatechange = function(){
+                if(this.readyState == 4 && this.status == 200){
+                    const resultado = JSON.parse(this.responseText);
+                    alertas(resultado.msg, resultado.icono);
+                    t_historial_c.ajax.reload();
+                }
+            }
+        }
+    })
+}
+function btnAnularVenta(id){
+    Swal.fire({
+        title: '¿Estas seguro de anular la venta?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, anularlo!',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if(result.isConfirmed){
+            const url = base_url + "Compras/anularVenta/" + id;
+            const http = new XMLHttpRequest();
+            http.open("GET", url, true);
+            http.send();
+            http.onreadystatechange = function(){
+                if(this.readyState == 4 && this.status == 200){
+                    const resultado = JSON.parse(this.responseText);
+                    alertas(resultado.msg, resultado.icono);
+                    t_historial_v.ajax.reload();
+                }
+            }
+        }
+    })
+}
+function arqueoCaja(){
+    $('#abrir_caja').modal('show');
+}
+function abrirArqueo(e){
+    e.preventDefault();
+    const monto_inicial = document.getElementById('monto_inicial').value;
+    if(monto_inicial == ''){
+        alertas('Ingrese el Monto Inicial', 'warning');
+    }else{
+        const form = document.getElementById('formAbrirCaja');
+        const url = base_url + "Cajas/abrirArqueo";
+        const http = new XMLHttpRequest();
+        http.open("POST", url, true);
+        http.send(new FormData(form));
+        http.onreadystatechange = function(){
+            if(this.readyState == 4 && this.status == 200){
+                const resultado = JSON.parse(this.responseText);
+                alertas(resultado.msg, resultado.icono);
+                $('#abrir_caja').modal('hide');
+            }
+        }
+    }
 }

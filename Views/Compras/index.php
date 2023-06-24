@@ -22,7 +22,7 @@
                     <div class="col-md-2">
                         <div class="form-group">
                             <label for="cantidad">Cantidad</label>
-                            <input id="cantidad" class="form-control" type="number" name="cantidad" onkeyup="calcularPrecio(event)">
+                            <input id="cantidad" class="form-control" type="number" name="cantidad" onkeyup="calcularPrecio(event)" disabled>
                         </div>
                     </div>
                     <div class="col-md-2">
@@ -60,7 +60,7 @@
             <div class="form-group">
                 <label for="total" class="font-weight-bold">Total</label>
                 <input id="total" class="form-control" type="text" name="total" placeholder="Total" disabled>
-                <button class="btn btn-success mt-2 btn-block" type="button" onclick="generarCompra()">Generar Compra</button>
+                <button class="btn btn-success mt-2 btn-block" type="button" onclick="procesar(1)">Generar Compra</button>
             </div>
         </div>
     </div>

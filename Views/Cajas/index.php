@@ -1,10 +1,10 @@
 <?php include "Views/Templates/header.php"; ?>
     <ol class="breadcrumb mb-4">
-        <li class="breadcrumb-item active">Cajas</li>
+        <li class="breadcrumb-item active">Caja</li>
     </ol>
     <button class="btn btn-outline-primary mb-2" type="button" onclick="formCaja();"><i class="fas fa-plus"></i></button>
     <table class="table table-light" id="tblCajas">
-        <thead class="thead-dark">
+        <thead style="background: lightgrey">
             <tr>
                 <th>Id</th>
                 <th>Caja</th>

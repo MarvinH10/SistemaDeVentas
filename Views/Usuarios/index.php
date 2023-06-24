@@ -4,7 +4,7 @@
     </ol>
     <button class="btn btn-outline-primary mb-2" type="button" onclick="formUsuario();"><i class="fas fa-plus"></i></button>
     <table class="table table-light" id="tblUsuarios">
-        <thead class="thead-dark">
+        <thead style="background: lightgrey">
             <tr>
                 <th>Id</th>
                 <th>Usuario</th>

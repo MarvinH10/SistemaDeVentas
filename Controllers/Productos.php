@@ -49,7 +49,8 @@
             $fecha = date("YmdHis");
 
             if(empty($codigo) || empty($nombre) || empty($precio_compra) || empty($precio_venta)){
-                $msg = "Todos los campos son obligatorios!";
+                //$msg = "Todos los campos son obligatorios!";
+                $msg = array('msg' => 'Todos los campos son obligatorios!', 'icono' => 'warning');
             }else{
                 if(!empty($name)){
                     $imgNombre = $fecha.".jpg";
@@ -66,11 +67,11 @@
                         if(!empty($name)){
                             move_uploaded_file($tmpname, $destino);
                         }
-                        $msg = "Si";
+                        $msg = array('msg' => 'Producto registrado con éxito!', 'icono' => 'success');
                     }else if($data == "Existe"){
-                        $msg = "El Producto ya existe!";
+                        $msg = array('msg' => 'El producto ya existe!', 'icono' => 'warning');
                     }else{
-                        $msg = "Error al registrar el Producto!";
+                        $msg = array('msg' => 'Error al registrar el producto!', 'icono' => 'error');
                     }
                 }else{
                     $imagenDelete = $this->model->editarProduct($id);
@@ -85,9 +86,10 @@
                         if(!empty($name)){
                             move_uploaded_file($tmpname, $destino);
                         }
-                        $msg = "Modificado";
+                        $msg = array('msg' => 'Producto modificado con éxito!', 'icono' => 'success');
+                        
                     }else{
-                        $msg = "Error al modificar el Producto!";
+                        $msg = array('msg' => 'Error al modificar el producto!', 'icono' => 'error');
                     }
                 }
                 

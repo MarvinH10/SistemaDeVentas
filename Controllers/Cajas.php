@@ -12,6 +12,10 @@
             $this->views->getView($this, "index");
         }
 
+        public function arqueo(){
+            $this->views->getView($this, "arqueo");
+        }
+
         public function listar(){
             $data = $this->model->getCajas();
             for($i=0; $i < count($data); $i++){ 
@@ -59,6 +63,28 @@
                     }
                 }
                 
+            }
+            echo json_encode($msg, JSON_UNESCAPED_UNICODE);
+            die();
+        }
+
+        public function abrirArqueo(){
+            $monto_inicial = $_POST['monto_inicial'];
+            $fecha_apertura = date('Y-m-d');
+            $id_usuario = $_SESSION['id_usuario'];
+
+            if(empty($monto_inicial) || empty($fecha_apertura)){
+                $msg = array('msg' => 'Todos los campos son obligatorios!', 'icono' => 'warning');
+            }else{  
+                $data = $this->model->registrarArqueo($id_usuario, $monto_inicial, $fecha_apertura);
+                    
+                if($data == "Ok"){
+                    $msg = array('msg' => 'Caja abierta con éxito!', 'icono' => 'success');
+                }else if($data == "Existe"){
+                    $msg = array('msg' => 'La caja ya esta abierta!', 'icono' => 'warning');
+                }else{
+                    $msg = array('msg' => 'Error al abrir la caja!', 'icono' => 'error');
+                }
             }
             echo json_encode($msg, JSON_UNESCAPED_UNICODE);
             die();
