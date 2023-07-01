@@ -6,8 +6,8 @@
             parent::__construct();
         }
 
-        public function getCajas(){
-            $sql = "SELECT * FROM caja";
+        public function getCajas(string $table){
+            $sql = "SELECT * FROM $table";
             $data = $this->selectAll($sql);
 
             return $data;
@@ -81,6 +81,49 @@
             $sql = "UPDATE caja SET estado = ? WHERE id = ?";
             $datos = array($this->estado, $this->id);
             $data = $this->save($sql, $datos);
+            return $data;
+        }
+
+        public function getVentas(int $id_user){
+            $sql = "SELECT total, SUM(total) AS total FROM ventas WHERE id_usuario = '$id_user' AND estado = 1 AND apertura = 1";
+            $data = $this->select($sql);
+            return $data;
+        }
+
+        public function getTotalVentas(int $id_user){
+            $sql = "SELECT COUNT(total) AS total FROM ventas WHERE id_usuario = '$id_user' AND estado = 1 AND apertura = 1";
+            $data = $this->select($sql);
+            return $data;
+        }
+
+        public function getMontoInicial(int $id_user){
+            $sql = "SELECT id, monto_inicial FROM cierre_caja WHERE id_usuario = '$id_user' AND estado = 1";
+            $data = $this->select($sql);
+            return $data;
+        }
+
+        public function actualizarArqueo(string $mfinal, string $fcierre, string $tventas, string $general, int $id){
+            $sql = "UPDATE cierre_caja SET monto_final = ?, fecha_cierre = ?, total_ventas = ?, monto_total = ?, estado = ?  WHERE id = ?";
+            $datos = array($mfinal, $fcierre, $tventas, $general, 0, $id);
+            $data = $this->save($sql, $datos);
+
+            if($data == 1){
+                $resultado = "Ok";
+            }else{
+                $resultado = "Error";
+            }
+            return $resultado;
+        }
+
+        public function actualizarApertura(int $id){
+            $sql = "UPDATE ventas SET apertura = ? WHERE id_usuario = ?";
+            $datos = array(0, $id);
+            $this->save($sql, $datos);
+        }
+
+        public function verificarPermiso(int $id_user, string $nombre){
+            $sql = "SELECT p.id, p.permiso, d.id, d.id_usuario, d.id_permiso FROM permisos p INNER JOIN detalle_permisos d ON p.id = d.id_permiso WHERE d.id_usuario = $id_user AND p.permiso = '$nombre'";
+            $data = $this->selectAll($sql);
             return $data;
         }
     }

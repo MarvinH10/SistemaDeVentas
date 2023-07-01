@@ -9,7 +9,14 @@
         }
 
         public function index(){
-            $this->views->getView($this, "index");
+            $id_user = $_SESSION['id_usuario'];
+            $model = new ClientesModel();
+            $verificar = $model->verificarPermiso($id_user, 'clientes');
+            if(!empty($verificar) || $id_user == 1){
+                $this->views->getView($this, "index");
+            }else{
+                header('Location: '.base_url.'Errors/permisos');
+            }
         }
 
         public function listar(){
@@ -33,35 +40,43 @@
         }
 
         public function registrar(){
-            $dni = $_POST['dni'];
-            $nombre = $_POST['nombre'];
-            $telefono = $_POST['telefono'];
-            $direccion = $_POST['direccion'];
-            $id = $_POST['id'];
+            $id_user = $_SESSION['id_usuario'];
+            $model = new ClientesModel();
+            $verificar = $model->verificarPermiso($id_user, 'registrar_clientes');
+            if(!empty($verificar) || $id_user == 1){
+                $dni = $_POST['dni'];
+                $nombre = $_POST['nombre'];
+                $telefono = $_POST['telefono'];
+                $direccion = $_POST['direccion'];
+                $id = $_POST['id'];
 
-            if(empty($dni) || empty($nombre) || empty($telefono) || empty($direccion)){
-                $msg = array('msg' => 'Todos los campos son obligatorios!', 'icono' => 'warning');
-            }else{  
-                if($id == ""){
-                        $data = $this->model->registrarCliente($dni, $nombre, $telefono, $direccion);
-                    
-                        if($data == "Ok"){
-                            $msg = array('msg' => 'Se registro correctamente al cliente!', 'icono' => 'success');
-                        }else if($data == "Existe"){
-                            $msg = array('msg' => 'El dni ya existe!', 'icono' => 'warning');
-                        }else{
-                            $msg = array('msg' => 'Error al registrar al cliente!', 'icono' => 'error');
-                        }
-                }else{
-                    $data = $this->model->modificarCliente($dni, $nombre, $telefono, $direccion, $id);
-                    
-                    if($data == "Modificado"){
-                        $msg = array('msg' => 'Se modifico correctamente al cliente!', 'icono' => 'success');
+                if(empty($dni) || empty($nombre) || empty($telefono) || empty($direccion)){
+                    $msg = array('msg' => 'Todos los campos son obligatorios!', 'icono' => 'warning');
+                }else{  
+                    if($id == ""){
+                            $data = $this->model->registrarCliente($dni, $nombre, $telefono, $direccion);
+                        
+                            if($data == "Ok"){
+                                $msg = array('msg' => 'Se registro correctamente al cliente!', 'icono' => 'success');
+                            }else if($data == "Existe"){
+                                $msg = array('msg' => 'El dni ya existe!', 'icono' => 'warning');
+                            }else{
+                                $msg = array('msg' => 'Error al registrar al cliente!', 'icono' => 'error');
+                            }
                     }else{
-                        $msg = array('msg' => 'Error al modificar al cliente!', 'icono' => 'error');
+                        $data = $this->model->modificarCliente($dni, $nombre, $telefono, $direccion, $id);
+                        
+                        if($data == "Modificado"){
+                            $msg = array('msg' => 'Se modifico correctamente al cliente!', 'icono' => 'success');
+                        }else{
+                            $msg = array('msg' => 'Error al modificar al cliente!', 'icono' => 'error');
+                        }
                     }
+                    
                 }
                 
+            }else{
+                $msg = array('msg' => 'No tienes permisos para registrar clientes!', 'icono' => 'warning');
             }
             echo json_encode($msg, JSON_UNESCAPED_UNICODE);
             die();

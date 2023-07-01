@@ -1,4 +1,4 @@
-let tblUsuarios, tblCajas, tblClientes, tblMedidas, tblCategorias, tblProductos, t_historial_c, t_historial_v;
+let tblUsuarios, tblCajas, tblClientes, tblMedidas, tblCategorias, tblProductos, t_historial_c, t_historial_v, tblArqueo;
 document.addEventListener("DOMContentLoaded", function(){
     $('#cliente').select2();
     //tblUsuarios
@@ -596,7 +596,12 @@ document.addEventListener("DOMContentLoaded", function(){
                 'data' : 'total'
             },
             {
-                'data' : 'fecha'
+                'data' : null,
+                'render': function(data, type, row) {
+                    // Concatenar fecha y hora
+                    var fechaHora = row.fecha + ' / ' + row.hora;
+                    return fechaHora;
+                }
             },
             {
                 'data' : 'estado'
@@ -608,6 +613,95 @@ document.addEventListener("DOMContentLoaded", function(){
         language: {
             "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"
         },
+        dom: "<'row'<'col-sm-4'l><'col-sm-4 text-center'B><'col-sm-4'f>>" +
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-5'i><'col-sm-7' p>>",
+        buttons: [{
+            //Botón para Excel
+            extend: 'excelHtml5',
+            footer: true,
+            title: 'Archivo',
+            filename: 'Export_File',
+
+            //Aquí es donde generas el botón personalizado
+            text: '<span class="badge badge-success"><i class="fas fa-file-excel"></i></span>'
+        },
+        //Botón para PDF
+        {
+            extend: 'pdfHtml5',
+            download: 'open',
+            footer: true,
+            title: 'Reporte de usuarios',
+            filename: 'Reporte de usuarios',
+            text: '<span class="badge  badge-danger"><i class="fas fa-file-pdf"></i></span>',
+            exportOptions: {
+                columns: [0, ':visible']
+            }
+        },
+        //Botón para copiar
+        {
+            extend: 'copyHtml5',
+            footer: true,
+            title: 'Reporte de usuarios',
+            filename: 'Reporte de usuarios',
+            text: '<span class="badge  badge-primary"><i class="fas fa-copy"></i></span>',
+            exportOptions: {
+                columns: [0, ':visible']
+            }
+        },
+        //Botón para print
+        {
+            extend: 'print',
+            footer: true,
+            filename: 'Export_File_print',
+            text: '<span class="badge badge-light"><i class="fas fa-print"></i></span>'
+        },
+        //Botón para cvs
+        {
+            extend: 'csvHtml5',
+            footer: true,
+            filename: 'Export_File_csv',
+            text: '<span class="badge  badge-success"><i class="fas fa-file-csv"></i></span>'
+        },
+        {
+            extend: 'colvis',
+            text: '<span class="badge  badge-info"><i class="fas fa-columns"></i></span>',
+            postfixButtons: ['colvisRestore']
+        }
+        ]
+    } );
+    //tblArqueo
+    tblArqueo = $('#tblArqueo').DataTable( {
+        ajax: {
+            url: base_url + "Cajas/listar_arqueo",
+            dataSrc: ''
+        },
+        columns: [
+            {
+                'data' : 'id'
+            },
+            {
+                'data' : 'monto_inicial'
+            },
+            {
+                'data' : 'monto_final'
+            },
+            {
+                'data' : 'fecha_apertura'
+            },
+            {
+                'data' : 'fecha_cierre'
+            },
+            {
+                'data' : 'total_ventas'
+            },
+            {
+                'data' : 'monto_total'
+            },
+            {
+                'data' : 'estado'
+            }
+        ],
         dom: "<'row'<'col-sm-4'l><'col-sm-4 text-center'B><'col-sm-4'f>>" +
                 "<'row'<'col-sm-12'tr>>" +
                 "<'row'<'col-sm-5'i><'col-sm-7' p>>",
@@ -2018,6 +2112,9 @@ function btnAnularVenta(id){
     })
 }
 function arqueoCaja(){
+    document.getElementById('ocultar_campos').classList.add('d-none');
+    document.getElementById('monto_inicial').value = '';
+    document.getElementById('btnAccion').innerHTML = 'Abrir Caja';
     $('#abrir_caja').modal('show');
 }
 function abrirArqueo(e){
@@ -2033,10 +2130,97 @@ function abrirArqueo(e){
         http.send(new FormData(form));
         http.onreadystatechange = function(){
             if(this.readyState == 4 && this.status == 200){
-                const resultado = JSON.parse(this.responseText);
-                alertas(resultado.msg, resultado.icono);
-                $('#abrir_caja').modal('hide');
+                try {
+                    const resultado = JSON.parse(this.responseText);
+                    setTimeout(function () {
+                        location.reload();
+                    }, 1000);
+                    alertas(resultado.msg, resultado.icono);
+                    tblArqueo.ajax.reload();
+                    $('#abrir_caja').modal('hide');
+                }catch(error){
+                    setTimeout(function () {
+                        location.reload();
+                    }, 1000);
+                    alertas("No puedes cerrar caja, porque aún no hay ventas!", "warning");
+                }
             }
         }
     }
 }
+function cerrarCaja(){
+    const url = base_url + "Cajas/getVentas";
+    const http = new XMLHttpRequest();
+    http.open("GET", url, true);
+    http.send();
+    http.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            try {
+                const resultado = JSON.parse(this.responseText);
+                document.getElementById('monto_final').value = resultado.monto_total.total;
+                document.getElementById('total_ventas').value = resultado.total_ventas.total;
+                document.getElementById('monto_inicial').value = resultado.inicial.monto_inicial;
+                document.getElementById('monto_general').value = resultado.monto_general;
+                document.getElementById('id').value = resultado.inicial.id;
+                document.getElementById('ocultar_campos').classList.remove('d-none');
+                document.getElementById('btnAccion').innerHTML = 'Cerrar Caja';
+                $('#abrir_caja').modal('show');
+            }catch(error){
+                setTimeout(function () {
+                    location.reload();
+                }, 1000);
+                alertas("No puedes cerrar caja, porque no hay una abierta!", "warning");
+            }
+        }
+    }
+}
+function registrarPermisos(e){
+    e.preventDefault();
+    const url = base_url + "Usuarios/registrarPermiso";
+    const form = document.getElementById('formulario');
+    const http = new XMLHttpRequest();
+    http.open("POST", url, true);
+    http.send(new FormData(form));
+    http.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            const resultado = JSON.parse(this.responseText);
+            if(resultado != ''){
+                alertas(resultado.msg, resultado.icono);
+            }else{
+                alertas('Error no identificado!', 'error');
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// function verificarHora() {
+//     const horaActual = new Date().getHours();
+
+//     // Define la hora en la que deseas cerrar la caja (por ejemplo, a las 23:59)
+//     const horaCierre = 23;
+//     const minutoCierre = 59;
+
+//     // Verifica si es la hora de cerrar la caja
+//     if (horaActual === horaCierre && new Date().getMinutes() >= minutoCierre) {
+//         cerrarCaja();
+//     }
+// }
+
+// // Verifica la hora cada minuto
+// setInterval(verificarHora, 60000); // Verifica cada 60 segundos

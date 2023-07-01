@@ -163,10 +163,6 @@ a {
   text-decoration: none;
   background-color: transparent;
 }
-a:hover {
-  color: #0056b3;
-  text-decoration: underline;
-}
 
 a:not([href]) {
   color: inherit;
@@ -10151,7 +10147,7 @@ body {
   margin: 0;
 }
 .sb-topnav.navbar-dark #sidebarToggle {
-  color: rgba(255, 255, 255, 0.5);
+  color: white;
 }
 .sb-topnav.navbar-light #sidebarToggle {
   color: #212529;
@@ -10202,7 +10198,7 @@ body {
   padding: 0.75rem;
   flex-shrink: 0;
 }
-
+/*ICONOS Y PALABRAS NAVBAR*/
 .sb-sidenav-dark {
   background-color: #212529;
   color: rgba(255, 255, 255, 0.5);
@@ -10211,27 +10207,29 @@ body {
   color: rgba(255, 255, 255, 0.25);
 }
 .sb-sidenav-dark .sb-sidenav-menu .nav-link {
-  color: rgba(255, 255, 255, 0.5);
+  color: white;
 }
 .sb-sidenav-dark .sb-sidenav-menu .nav-link .sb-nav-link-icon {
-  color: rgba(255, 255, 255, 0.25);
+  color: white;
 }
 .sb-sidenav-dark .sb-sidenav-menu .nav-link .sb-sidenav-collapse-arrow {
-  color: rgba(255, 255, 255, 0.25);
+  color: white;
 }
 .sb-sidenav-dark .sb-sidenav-menu .nav-link:hover {
-  color: #fff;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
 }
 .sb-sidenav-dark .sb-sidenav-menu .nav-link.active {
-  color: #fff;
+  color: white;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
 }
 .sb-sidenav-dark .sb-sidenav-menu .nav-link.active .sb-nav-link-icon {
-  color: #fff;
+  color: white;
 }
+
+/*ESTE CODIGO NO ES NECESARIO*/
 .sb-sidenav-dark .sb-sidenav-footer {
   background-color: #343a40;
 }
-
 .sb-sidenav-light {
   background-color: #f8f9fa;
   color: #212529;

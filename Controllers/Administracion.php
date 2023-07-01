@@ -9,8 +9,15 @@ class Administracion extends Controller{
     }
     
     public function index(){
-        $data = $this->model->getEmpresa();
-        $this->views->getView($this, "index", $data);
+        $id_user = $_SESSION['id_usuario'];
+        $model = new AdministracionModel();
+        $verificar = $model->verificarPermiso($id_user, 'configuracion');
+        if(!empty($verificar) || $id_user == 1){
+            $data = $this->model->getEmpresa();
+            $this->views->getView($this, "index", $data);
+        }else{
+            header('Location: '.base_url.'Errors/permisos');
+        }
     }
 
     public function home(){

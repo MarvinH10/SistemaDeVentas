@@ -43,6 +43,11 @@
                 </div>
             </div>
         </div>
+        <script>
+            window.addEventListener('resize', function() {
+            location.reload(); // Recarga la página al cambiar el tamaño de la ventana
+            });
+        </script>
         <script src="<?php echo base_url; ?>Assets/js/jquery-3.6.4.min.js" crossorigin="anonymous"></script>
         <script src="<?php echo base_url; ?>Assets/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="<?php echo base_url; ?>Assets/js/scripts.js"></script>

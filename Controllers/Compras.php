@@ -9,7 +9,14 @@
         }
 
         public function index(){
-            $this->views->getView($this, "index");
+            $id_user = $_SESSION['id_usuario'];
+            $model = new ComprasModel();
+            $verificar = $model->verificarPermiso($id_user, 'compras');
+            if(!empty($verificar) || $id_user == 1){
+                $this->views->getView($this, "index");
+            }else{
+                header('Location: '.base_url.'Errors/permisos');
+            }
         }
 
         public function ventas(){
@@ -151,28 +158,36 @@
 
         public function registrarVenta($id_cliente){
             $id_usuario = $_SESSION['id_usuario'];
-            $total = $this->model->calcularCompra('detalle_temp', $id_usuario);
-            $data = $this->model->registraVenta($id_cliente, $total['total']);
-            if($data == "Ok"){
-                $detalle = $this->model->getDetalle('detalle_temp', $id_usuario);
-                $id_venta = $this->model->getId('ventas');
-                foreach($detalle as $row){
-                    $cantidad = $row['cantidad'];
-                    $desc = $row['descuento'];
-                    $precio = $row['precio'];
-                    $id_pro = $row['id_producto'];
-                    $sub_total = ($cantidad * $precio) - $desc;
-                    $this->model->registrarDetalleVenta($id_venta['id'], $id_pro, $cantidad, $desc, $precio, $sub_total);
-                    $stock_actual = $this->model->getProductos($id_pro);
-                    $stock = $stock_actual['cantidad'] - $cantidad;
-                    $this->model->actualizarStock($stock, $id_pro);
-                }
-                $vaciar = $this->model->vaciarDetalle('detalle_temp', $id_usuario);
-                if($vaciar == "Ok"){
-                    $msg = array('msg' => 'Ok', 'id_venta' => $id_venta['id']);
-                }
+            $verificar = $this->model->verificarCaja($id_usuario);
+            if(empty($verificar)){
+                $msg = array('msg' => 'La caja esta cerrada!', 'icono' => 'warning');
             }else{
-                $msg = array('msg' => 'Error al realizar la venta!', 'icono' => 'error');
+                $fecha = date('Y-m-d');
+                $hora = date('H:i:s');
+                $id_usuario = $_SESSION['id_usuario'];
+                $total = $this->model->calcularCompra('detalle_temp', $id_usuario);
+                $data = $this->model->registraVenta($id_usuario, $id_cliente, $total['total'], $fecha, $hora);
+                if($data == "Ok"){
+                    $detalle = $this->model->getDetalle('detalle_temp', $id_usuario);
+                    $id_venta = $this->model->getId('ventas');
+                    foreach($detalle as $row){
+                        $cantidad = $row['cantidad'];
+                        $desc = $row['descuento'];
+                        $precio = $row['precio'];
+                        $id_pro = $row['id_producto'];
+                        $sub_total = ($cantidad * $precio) - $desc;
+                        $this->model->registrarDetalleVenta($id_venta['id'], $id_pro, $cantidad, $desc, $precio, $sub_total);
+                        $stock_actual = $this->model->getProductos($id_pro);
+                        $stock = $stock_actual['cantidad'] - $cantidad;
+                        $this->model->actualizarStock($stock, $id_pro);
+                    }
+                    $vaciar = $this->model->vaciarDetalle('detalle_temp', $id_usuario);
+                    if($vaciar == "Ok"){
+                        $msg = array('msg' => 'Ok', 'id_venta' => $id_venta['id']);
+                    }
+                }else{
+                    $msg = array('msg' => 'Error al realizar la venta!', 'icono' => 'error');
+                }
             }
             echo json_encode($msg);
             die();
@@ -343,6 +358,9 @@
             $pdf->Cell(70, 5, number_format($descuento['total'], 2, '.', ','), 0, 1, 'R');
             $pdf->Cell(70, 5, 'Total a pagar', 0, 1, 'R');
             $pdf->Cell(70, 5, number_format($total, 2, '.', ','), 0, 1, 'R');
+            
+            $pdf->Ln();
+            $pdf->Cell(70, 70, $empresa['mensaje'], 0, 1, 'C');
 
             $pdf->Output();
         }

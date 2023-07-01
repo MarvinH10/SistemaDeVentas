@@ -167,9 +167,9 @@
             return $data;
         }
 
-        public function registraVenta(int $id_cliente, string $total){
-            $sql = "INSERT INTO ventas (id_cliente, total) VALUES (?, ?)";
-            $datos = array($id_cliente, $total);
+        public function registraVenta(int $id_user, int $id_cliente, string $total, string $fecha, string $hora){
+            $sql = "INSERT INTO ventas (id_usuario, id_cliente, total, fecha, hora) VALUES (?, ?, ?, ?, ?)";
+            $datos = array($id_user, $id_cliente, $total, $fecha, $hora);
             $data = $this->save($sql, $datos);
             if($data == 1){
                 $resultado = "Ok";
@@ -243,6 +243,18 @@
                 $resultado = "Error";
             }
             return $resultado;
+        }
+
+        public function verificarCaja(int $id){
+            $sql = "SELECT * FROM cierre_Caja WHERE id_usuario = $id AND estado = 1";
+            $data = $this->select($sql);
+            return $data;
+        }
+
+        public function verificarPermiso(int $id_user, string $nombre){
+            $sql = "SELECT p.id, p.permiso, d.id, d.id_usuario, d.id_permiso FROM permisos p INNER JOIN detalle_permisos d ON p.id = d.id_permiso WHERE d.id_usuario = $id_user AND p.permiso = '$nombre'";
+            $data = $this->selectAll($sql);
+            return $data;
         }
     }
 ?>

@@ -27,7 +27,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form method="post" id="formUsuario">
+                    <form method="POST" id="formUsuario">
                         <div class="form-group">    
                             <label for="usuario">Usuario</label>
                             <input type="hidden" id="id" name="id">

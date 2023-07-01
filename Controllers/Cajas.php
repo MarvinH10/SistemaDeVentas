@@ -9,7 +9,15 @@
         }
 
         public function index(){
-            $this->views->getView($this, "index");
+            
+            $id_user = $_SESSION['id_usuario'];
+            $model = new CajasModel();
+            $verificar = $model->verificarPermiso($id_user, 'caja');
+            if(!empty($verificar) || $id_user == 1){
+                $this->views->getView($this, "index");
+            }else{
+                header('Location: '.base_url.'Errors/permisos');
+            }
         }
 
         public function arqueo(){
@@ -17,7 +25,7 @@
         }
 
         public function listar(){
-            $data = $this->model->getCajas();
+            $data = $this->model->getCajas('caja');
             for($i=0; $i < count($data); $i++){ 
                 if($data[$i]['estado'] == 1){
                     $data[$i]['estado'] = '<span class="badge badge-success">Activo</span>';
@@ -30,6 +38,19 @@
                     $data[$i]['acciones'] = '<div>
                         <button class="btn btn-success" type="button" onclick="btnReactivarBox('.$data[$i]['id'].');"><i class="fa-solid fa-rotate-left"></i> Reactivar</button>
                     </div>';
+                }
+            }
+            echo json_encode($data, JSON_UNESCAPED_UNICODE);
+            die();
+        }
+
+        public function listar_arqueo(){
+            $data = $this->model->getCajas('cierre_caja');
+            for($i=0; $i < count($data); $i++){ 
+                if($data[$i]['estado'] == 1){
+                    $data[$i]['estado'] = '<span class="badge badge-success">Abierta</span>';
+                }else{
+                    $data[$i]['estado'] = '<span class="badge badge-secondary">Cerrada</span>';
                 }
             }
             echo json_encode($data, JSON_UNESCAPED_UNICODE);
@@ -72,18 +93,34 @@
             $monto_inicial = $_POST['monto_inicial'];
             $fecha_apertura = date('Y-m-d');
             $id_usuario = $_SESSION['id_usuario'];
+            $id = $_POST['id'];
 
-            if(empty($monto_inicial) || empty($fecha_apertura)){
-                $msg = array('msg' => 'Todos los campos son obligatorios!', 'icono' => 'warning');
+            if(empty($monto_inicial)){
+                $msg = array('msg' => 'Este campo es obligatorio!', 'icono' => 'warning');
             }else{  
-                $data = $this->model->registrarArqueo($id_usuario, $monto_inicial, $fecha_apertura);
+                if($id == ""){
+                    $data = $this->model->registrarArqueo($id_usuario, $monto_inicial, $fecha_apertura);
                     
-                if($data == "Ok"){
-                    $msg = array('msg' => 'Caja abierta con éxito!', 'icono' => 'success');
-                }else if($data == "Existe"){
-                    $msg = array('msg' => 'La caja ya esta abierta!', 'icono' => 'warning');
+                    if($data == "Ok"){
+                        $msg = array('msg' => 'Caja abierta con éxito!', 'icono' => 'success');
+                    }else if($data == "Existe"){
+                        $msg = array('msg' => 'La caja ya esta abierta!', 'icono' => 'warning');
+                    }else{
+                        $msg = array('msg' => 'Error al abrir la caja!', 'icono' => 'error');
+                    }
                 }else{
-                    $msg = array('msg' => 'Error al abrir la caja!', 'icono' => 'error');
+                    $monto_final = $this->model->getVentas($id_usuario);
+                    $total_ventas = $this->model->getTotalVentas($id_usuario);
+                    $inicial = $this->model->getMontoInicial($id_usuario);
+                    $general = $monto_final['total'] + $inicial['monto_inicial'];
+                    $data = $this->model->actualizarArqueo($monto_final['total'], $fecha_apertura, $total_ventas['total'], $general, $inicial['id']);
+                    
+                    if($data == "Ok"){
+                        $this->model->actualizarApertura($id_usuario);
+                        $msg = array('msg' => 'Caja cerrada con éxito!', 'icono' => 'success');
+                    }else{
+                        $msg = array('msg' => 'Error al cerrar la caja!', 'icono' => 'error');
+                    }
                 }
             }
             echo json_encode($msg, JSON_UNESCAPED_UNICODE);
@@ -117,6 +154,16 @@
                 $msg = "Error al reactivar la categoria!";
             }
             echo json_encode($msg, JSON_UNESCAPED_UNICODE);
+            die();
+        }
+
+        public function getVentas(){
+            $id_usuario = $_SESSION['id_usuario'];
+            $data['monto_total'] = $this->model->getVentas($id_usuario);
+            $data['total_ventas'] = $this->model->getTotalVentas($id_usuario);
+            $data['inicial'] = $this->model->getMontoInicial($id_usuario);
+            $data['monto_general'] = ($data['monto_total']['total']) + ($data['inicial']['monto_inicial']);
+            echo json_encode($data, JSON_UNESCAPED_UNICODE);
             die();
         }
     }

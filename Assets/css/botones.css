@@ -1,0 +1,60 @@
+.contenedor {
+	display: flex;
+	flex-direction: column;
+}
+.contenedor-botones {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 40px;
+}
+
+.boton {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 40px;
+	background: #141414;
+	color: #fff;
+	font-family: 'Roboto', sans-serif;
+	font-size: 10px;
+	font-weight: 500;
+	border: none;
+	cursor: pointer;
+	text-transform: uppercase;
+	transition: .3s ease all;
+	border-radius: 5px;
+	position: relative;
+	overflow: hidden;
+    box-shadow: 0 0 10px 5px rgb(255, 255, 255);
+}
+
+.boton span {
+	position: relative;
+	z-index: 2;
+	transition: .3s ease all;
+}
+
+/*Botones*/
+.boton.dos::after {
+	content: "";
+	width: 100%;
+	position: absolute;
+	z-index: 1;
+	top: 0;
+	left: calc(-100% - 80px);
+	border-bottom: 80px solid #ffffff;
+	border-right: 80px solid transparent;
+	transition: .4s ease-in-out all;
+}
+
+.boton.boton.dos:hover {
+    color: #000000;
+    box-shadow: 0 0 10px 5px rgb(0, 0, 0);
+}
+
+.boton.dos:hover::after {
+	left: 0;
+}

@@ -147,6 +147,7 @@
     <div class="col-xl-6">
         <div class="card">
             <div style="background: linear-gradient(to bottom, #ffff99 0%, #66ccff 100%)" class="card-header text-white">
+                <i class="fa-sharp fa-solid fa-chart-pie" style="color: #ffffff;"></i>
                 Productos con Stock Mínimo
             </div>
             <div class="card-body">
@@ -157,6 +158,7 @@
     <div class="col-xl-6">
         <div class="card">
             <div style="background: linear-gradient(to bottom, #ffff99 0%, #ff3399 100%)" class="card-header text-white">
+                <i class="fa-solid fa-circle-half-stroke"></i>
                 Productos más Vendidos
             </div>
             <div class="card-body">
