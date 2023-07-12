@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 01-07-2023 a las 16:16:49
+-- Tiempo de generación: 12-07-2023 a las 23:52:07
 -- Versión del servidor: 10.4.27-MariaDB
 -- Versión de PHP: 8.2.0
 
@@ -20,8 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `sistemaventas`
 --
-CREATE DATABASE IF NOT EXISTS `sistemaventas` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `sistemaventas`;
 
 -- --------------------------------------------------------
 
@@ -29,7 +27,6 @@ USE `sistemaventas`;
 -- Estructura de tabla para la tabla `caja`
 --
 
-DROP TABLE IF EXISTS `caja`;
 CREATE TABLE `caja` (
   `id` int(11) NOT NULL,
   `caja` varchar(50) NOT NULL,
@@ -51,7 +48,6 @@ INSERT INTO `caja` (`id`, `caja`, `estado`) VALUES
 -- Estructura de tabla para la tabla `categorias`
 --
 
-DROP TABLE IF EXISTS `categorias`;
 CREATE TABLE `categorias` (
   `id` int(11) NOT NULL,
   `nombre` varchar(50) NOT NULL,
@@ -76,7 +72,6 @@ INSERT INTO `categorias` (`id`, `nombre`, `estado`) VALUES
 -- Estructura de tabla para la tabla `cierre_caja`
 --
 
-DROP TABLE IF EXISTS `cierre_caja`;
 CREATE TABLE `cierre_caja` (
   `id` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL,
@@ -97,7 +92,8 @@ INSERT INTO `cierre_caja` (`id`, `id_usuario`, `monto_inicial`, `monto_final`, `
 (1, 1, '50.00', '0.00', '2023-06-24', '0000-00-00', 0, '0.00', 0),
 (14, 1, '60.00', '0.00', '2023-06-28', '0000-00-00', 0, '0.00', 0),
 (19, 1, '15.00', '24.00', '2023-06-28', '2023-06-28', 1, '39.00', 0),
-(20, 1, '100.00', '0.00', '2023-06-28', '0000-00-00', 0, '0.00', 1);
+(20, 1, '100.00', '15.90', '2023-06-28', '2023-07-11', 1, '115.90', 0),
+(21, 1, '11.00', '15.90', '2023-07-11', '2023-07-12', 1, '26.90', 0);
 
 -- --------------------------------------------------------
 
@@ -105,7 +101,6 @@ INSERT INTO `cierre_caja` (`id`, `id_usuario`, `monto_inicial`, `monto_final`, `
 -- Estructura de tabla para la tabla `clientes`
 --
 
-DROP TABLE IF EXISTS `clientes`;
 CREATE TABLE `clientes` (
   `id` int(11) NOT NULL,
   `dni` varchar(8) NOT NULL,
@@ -132,7 +127,6 @@ INSERT INTO `clientes` (`id`, `dni`, `nombre`, `telefono`, `direccion`, `estado`
 -- Estructura de tabla para la tabla `compras`
 --
 
-DROP TABLE IF EXISTS `compras`;
 CREATE TABLE `compras` (
   `id` int(11) NOT NULL,
   `total` decimal(10,2) NOT NULL,
@@ -149,7 +143,8 @@ INSERT INTO `compras` (`id`, `total`, `fecha`, `estado`) VALUES
 (2, '54.00', '2023-06-23 04:41:19', 0),
 (3, '154.00', '2023-06-23 04:47:57', 0),
 (4, '16.00', '2023-06-24 00:29:00', 0),
-(5, '400.00', '2023-06-27 22:53:56', 1);
+(5, '400.00', '2023-06-27 22:53:56', 1),
+(6, '12.00', '2023-07-12 05:53:01', 1);
 
 -- --------------------------------------------------------
 
@@ -157,7 +152,6 @@ INSERT INTO `compras` (`id`, `total`, `fecha`, `estado`) VALUES
 -- Estructura de tabla para la tabla `configuracion`
 --
 
-DROP TABLE IF EXISTS `configuracion`;
 CREATE TABLE `configuracion` (
   `id` int(11) NOT NULL,
   `ruc` varchar(20) NOT NULL,
@@ -181,7 +175,6 @@ INSERT INTO `configuracion` (`id`, `ruc`, `nombre`, `telefono`, `direccion`, `me
 -- Estructura de tabla para la tabla `detalle`
 --
 
-DROP TABLE IF EXISTS `detalle`;
 CREATE TABLE `detalle` (
   `id` int(11) NOT NULL,
   `id_producto` int(11) NOT NULL,
@@ -197,7 +190,6 @@ CREATE TABLE `detalle` (
 -- Estructura de tabla para la tabla `detalle_compras`
 --
 
-DROP TABLE IF EXISTS `detalle_compras`;
 CREATE TABLE `detalle_compras` (
   `id` int(11) NOT NULL,
   `id_compra` int(11) NOT NULL,
@@ -217,7 +209,8 @@ INSERT INTO `detalle_compras` (`id`, `id_compra`, `id_producto`, `cantidad`, `pr
 (3, 3, 3, 1, '54.00', '54.00'),
 (4, 3, 5, 4, '25.00', '100.00'),
 (5, 4, 6, 2, '8.00', '16.00'),
-(6, 5, 6, 50, '8.00', '400.00');
+(6, 5, 6, 50, '8.00', '400.00'),
+(7, 6, 1, 1, '12.00', '12.00');
 
 -- --------------------------------------------------------
 
@@ -225,7 +218,6 @@ INSERT INTO `detalle_compras` (`id`, `id_compra`, `id_producto`, `cantidad`, `pr
 -- Estructura de tabla para la tabla `detalle_permisos`
 --
 
-DROP TABLE IF EXISTS `detalle_permisos`;
 CREATE TABLE `detalle_permisos` (
   `id` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL,
@@ -251,13 +243,10 @@ INSERT INTO `detalle_permisos` (`id`, `id_usuario`, `id_permiso`) VALUES
 (61, 1, 1),
 (62, 1, 2),
 (63, 1, 3),
-(84, 2, 6),
-(85, 2, 7),
-(86, 2, 8),
-(87, 2, 11),
-(88, 2, 12),
-(89, 2, 14),
-(90, 2, 5);
+(119, 2, 5),
+(120, 2, 6),
+(121, 2, 7),
+(122, 2, 8);
 
 -- --------------------------------------------------------
 
@@ -265,7 +254,6 @@ INSERT INTO `detalle_permisos` (`id`, `id_usuario`, `id_permiso`) VALUES
 -- Estructura de tabla para la tabla `detalle_temp`
 --
 
-DROP TABLE IF EXISTS `detalle_temp`;
 CREATE TABLE `detalle_temp` (
   `id` int(11) NOT NULL,
   `id_producto` int(11) NOT NULL,
@@ -282,7 +270,6 @@ CREATE TABLE `detalle_temp` (
 -- Estructura de tabla para la tabla `detalle_ventas`
 --
 
-DROP TABLE IF EXISTS `detalle_ventas`;
 CREATE TABLE `detalle_ventas` (
   `id` int(11) NOT NULL,
   `id_venta` int(11) NOT NULL,
@@ -306,7 +293,9 @@ INSERT INTO `detalle_ventas` (`id`, `id_venta`, `id_producto`, `cantidad`, `desc
 (6, 6, 5, 3, '0.00', '36.90', '110.70'),
 (7, 7, 1, 1, '0.00', '15.90', '15.90'),
 (8, 8, 1, 1, '0.00', '15.90', '15.90'),
-(9, 9, 1, 2, '10.00', '15.90', '21.80');
+(9, 9, 1, 2, '10.00', '15.90', '21.80'),
+(10, 10, 1, 1, '0.00', '15.90', '15.90'),
+(11, 11, 1, 1, '0.00', '15.90', '15.90');
 
 -- --------------------------------------------------------
 
@@ -314,7 +303,6 @@ INSERT INTO `detalle_ventas` (`id`, `id_venta`, `id_producto`, `cantidad`, `desc
 -- Estructura de tabla para la tabla `medidas`
 --
 
-DROP TABLE IF EXISTS `medidas`;
 CREATE TABLE `medidas` (
   `id` int(11) NOT NULL,
   `nombre` varchar(50) NOT NULL,
@@ -337,7 +325,6 @@ INSERT INTO `medidas` (`id`, `nombre`, `nombre_corto`, `estado`) VALUES
 -- Estructura de tabla para la tabla `permisos`
 --
 
-DROP TABLE IF EXISTS `permisos`;
 CREATE TABLE `permisos` (
   `id` int(11) NOT NULL,
   `permiso` varchar(30) NOT NULL
@@ -369,7 +356,6 @@ INSERT INTO `permisos` (`id`, `permiso`) VALUES
 -- Estructura de tabla para la tabla `productos`
 --
 
-DROP TABLE IF EXISTS `productos`;
 CREATE TABLE `productos` (
   `id` int(11) NOT NULL,
   `codigo` varchar(20) NOT NULL,
@@ -388,7 +374,7 @@ CREATE TABLE `productos` (
 --
 
 INSERT INTO `productos` (`id`, `codigo`, `descripcion`, `precio_compra`, `precio_venta`, `cantidad`, `id_medida`, `id_categoria`, `foto`, `estado`) VALUES
-(1, '987645', 'Naaaadita', '12.00', '15.90', 2, 1, 1, '20230527030112.jpg', 1),
+(1, '987645', 'Naaaadita', '12.00', '15.90', 1, 1, 1, '20230527030112.jpg', 1),
 (2, '123141', 'Van Helsing', '123.00', '1231.00', 23, 1, 1, '20230410004539.jpg', 1),
 (3, '786785', 'Fanta', '54.00', '98.00', 9, 3, 2, '20230411190554.jpg', 1),
 (4, '3131211', 'cosas', '1.00', '2.00', 10, 1, 3, '20230411190609.jpg', 1),
@@ -398,13 +384,59 @@ INSERT INTO `productos` (`id`, `codigo`, `descripcion`, `precio_compra`, `precio
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `recuperar_passwords`
+--
+
+CREATE TABLE `recuperar_passwords` (
+  `id` int(11) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `token` varchar(200) NOT NULL,
+  `codigo` int(11) NOT NULL,
+  `fecha` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `recuperar_passwords`
+--
+
+INSERT INTO `recuperar_passwords` (`id`, `email`, `token`, `codigo`, `fecha`) VALUES
+(1, 'admin@gmail.com', '~???', 4457, '2023-07-12 02:03:01'),
+(2, 'admin@gmail.com', 'Ff', 3993, '2023-07-12 02:10:30'),
+(3, 'admin@gmail.com', 'g?w??', 3136, '2023-07-12 02:15:30'),
+(4, 'admin@gmail.com', '8?D\Z	', 5520, '2023-07-12 02:22:53'),
+(5, 'admin@gmail.com', '??~j-', 9707, '2023-07-12 02:24:31'),
+(6, 'jhon@gmail.com', '2c99fd4e102d8a0b13', 7369, '2023-07-12 03:16:17'),
+(7, 'admin@gmail.com', '0cc5aa67e23feb8c11', 7223, '2023-07-12 04:02:53'),
+(8, 'admin@gmail.com', '894bf537e255f6ee10', 8819, '2023-07-12 04:06:19'),
+(9, 'admin@gmail.com', 'be25c8a42fbbf65116', 9117, '2023-07-12 04:06:55'),
+(10, 'jhon@gmail.com', 'd6ef3abf51a7f6c013', 1113, '2023-07-12 04:08:58'),
+(11, 'jhon@gmail.com', '5ca721e0746e3d2f16', 6408, '2023-07-12 04:10:47'),
+(12, 'jhon@gmail.com', '1952fa79be48ac0514', 2589, '2023-07-12 04:15:17'),
+(13, 'jhon@gmail.com', 'ed1b1b96de4e79ef6', 5523, '2023-07-12 04:16:37'),
+(14, 'jhon@gmail.com', 'bc58d4801681cbca13', 6643, '2023-07-12 04:19:30'),
+(15, 'jhon@gmail.com', '4218faa886c7d29e7', 5594, '2023-07-12 04:26:47'),
+(16, 'jhon@gmail.com', '4ef0c5ab899989405', 6122, '2023-07-12 05:34:00'),
+(17, 'jhon@gmail.com', 'dc1a734503fefe8913', 6452, '2023-07-12 05:36:25'),
+(18, 'jhon@gmail.com', 'd063793c21e44f797', 7674, '2023-07-12 05:42:24'),
+(19, 'jhon@gmail.com', 'a806c1dd9cd6c85016', 1092, '2023-07-12 05:43:53'),
+(20, 'jhon@gmail.com', '62cda516bc2bf0436', 6526, '2023-07-12 05:45:51'),
+(21, 'jhon@gmail.com', '67e48ad2fd2bbf319', 4484, '2023-07-12 20:31:50'),
+(22, 'jhon@gmail.com', 'f5033d6aa675dd746', 6113, '2023-07-12 20:32:11'),
+(23, 'jhon@gmail.com', '9f74320bdd5f18015', 7247, '2023-07-12 20:32:37'),
+(24, 'jhon@gmail.com', '57f5e7eb19eb52409', 7992, '2023-07-12 20:36:22'),
+(25, 'jhon@gmail.com', '06e96a52e909234b13', 2695, '2023-07-12 20:50:57'),
+(26, 'jhon@gmail.com', 'a54a62ee8cd317549', 1686, '2023-07-12 21:00:42');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `usuarios`
 --
 
-DROP TABLE IF EXISTS `usuarios`;
 CREATE TABLE `usuarios` (
   `id` int(11) NOT NULL,
   `usuario` varchar(20) NOT NULL,
+  `email` varchar(100) NOT NULL,
   `nombre` varchar(100) NOT NULL,
   `clave` varchar(100) NOT NULL,
   `id_caja` int(11) NOT NULL,
@@ -415,11 +447,11 @@ CREATE TABLE `usuarios` (
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `usuario`, `nombre`, `clave`, `id_caja`, `estado`) VALUES
-(1, 'admin', 'Marvin Héctor', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 1, 1),
-(2, 'Jhon', 'Jhon Campos', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 2, 1),
-(3, 'Luis', 'Luis Campos', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 4, 1),
-(4, 'hector', 'Hector Teodoro', 'f6f2ea8f45d8a057c9566a33f99474da2e5c6a6604d736121650e2730c6fb0a3', 1, 1);
+INSERT INTO `usuarios` (`id`, `usuario`, `email`, `nombre`, `clave`, `id_caja`, `estado`) VALUES
+(1, 'admin', 'admin@gmail.com', 'Marvin Héctor', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 1, 1),
+(2, 'Jhon', 'jhon@gmail.com', 'Jhon Campos', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 2, 1),
+(3, 'Luis', 'luis@gmail.com', 'Luis Campos', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 4, 1),
+(4, 'hector', 'hector@gmail.com', 'Hector Teodoro', 'f6f2ea8f45d8a057c9566a33f99474da2e5c6a6604d736121650e2730c6fb0a3', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -427,7 +459,6 @@ INSERT INTO `usuarios` (`id`, `usuario`, `nombre`, `clave`, `id_caja`, `estado`)
 -- Estructura de tabla para la tabla `ventas`
 --
 
-DROP TABLE IF EXISTS `ventas`;
 CREATE TABLE `ventas` (
   `id` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL,
@@ -452,7 +483,9 @@ INSERT INTO `ventas` (`id`, `id_usuario`, `id_cliente`, `total`, `fecha`, `hora`
 (6, 1, 1, '110.70', '2023-06-28', '00:52:20', 1, 0),
 (7, 1, 1, '15.90', '2023-06-28', '01:45:32', 1, 0),
 (8, 1, 1, '15.90', '2023-06-28', '09:21:09', 1, 0),
-(9, 1, 4, '21.80', '2023-06-28', '19:30:55', 1, 0);
+(9, 1, 4, '21.80', '2023-06-28', '19:30:55', 1, 0),
+(10, 1, 1, '15.90', '2023-07-11', '19:53:07', 1, 0),
+(11, 1, 1, '15.90', '2023-07-12', '07:53:58', 1, 0);
 
 --
 -- Índices para tablas volcadas
@@ -545,6 +578,12 @@ ALTER TABLE `productos`
   ADD KEY `id_categoria` (`id_categoria`);
 
 --
+-- Indices de la tabla `recuperar_passwords`
+--
+ALTER TABLE `recuperar_passwords`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
@@ -576,7 +615,7 @@ ALTER TABLE `categorias`
 -- AUTO_INCREMENT de la tabla `cierre_caja`
 --
 ALTER TABLE `cierre_caja`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT de la tabla `clientes`
@@ -588,7 +627,7 @@ ALTER TABLE `clientes`
 -- AUTO_INCREMENT de la tabla `compras`
 --
 ALTER TABLE `compras`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `configuracion`
@@ -600,31 +639,31 @@ ALTER TABLE `configuracion`
 -- AUTO_INCREMENT de la tabla `detalle`
 --
 ALTER TABLE `detalle`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_compras`
 --
 ALTER TABLE `detalle_compras`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_permisos`
 --
 ALTER TABLE `detalle_permisos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=123;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_temp`
 --
 ALTER TABLE `detalle_temp`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_ventas`
 --
 ALTER TABLE `detalle_ventas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `medidas`
@@ -645,6 +684,12 @@ ALTER TABLE `productos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT de la tabla `recuperar_passwords`
+--
+ALTER TABLE `recuperar_passwords`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+
+--
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
@@ -654,7 +699,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `ventas`
 --
 ALTER TABLE `ventas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Restricciones para tablas volcadas
