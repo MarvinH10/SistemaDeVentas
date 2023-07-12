@@ -1,0 +1,6 @@
+COSAS PARA IMPLEMENTAR
+restablecer contraseña-->falta que cuando esten logueados no se muestre restablecer password.
+cambiar texto en configuracion de administracion
+cambiar el aspecto del home
+buscar por rango de fechas
+para hacer una venta dar la opcion de buscar por nombres
