@@ -7,8 +7,7 @@
 
         public function index(){
             $id_user = $_SESSION['id_usuario'];
-            $model = new ProductosModel();
-            $verificar = $model->verificarPermiso($id_user, 'productos');
+            $verificar = $this->model->verificarPermiso($id_user, 'productos');
             if(!empty($verificar) || $id_user == 1){
                 if(empty($_SESSION['activo'])){
                     header("location: ".base_url);

@@ -10,8 +10,7 @@
 
         public function index(){
             $id_user = $_SESSION['id_usuario'];
-            $model = new ComprasModel();
-            $verificar = $model->verificarPermiso($id_user, 'compras');
+            $verificar = $this->model->verificarPermiso($id_user, 'nueva_compra');
             if(!empty($verificar) || $id_user == 1){
                 $this->views->getView($this, "index");
             }else{
@@ -20,16 +19,34 @@
         }
 
         public function ventas(){
-            $data = $this->model->getClientes();
-            $this->views->getView($this, "ventas", $data);
+            $id_user = $_SESSION['id_usuario'];
+            $verificar = $this->model->verificarPermiso($id_user, 'nueva_venta');
+            if(!empty($verificar) || $id_user == 1){
+                $data = $this->model->getClientes();
+                $this->views->getView($this, "ventas", $data);
+            }else{
+                header('Location: '.base_url.'Errors/permisos');
+            }
         }
 
         public function historial(){
-            $this->views->getView($this, "historial");
+            $id_user = $_SESSION['id_usuario'];
+            $verificar = $this->model->verificarPermiso($id_user, 'historial_compras');
+            if(!empty($verificar) || $id_user == 1){
+                $this->views->getView($this, "historial");
+            }else{
+                header('Location: '.base_url.'Errors/permisos');
+            }
         }
 
         public function historial_ventas(){
-            $this->views->getView($this, "historial_ventas");
+            $id_user = $_SESSION['id_usuario'];
+            $verificar = $this->model->verificarPermiso($id_user, 'historial_ventas');
+            if(!empty($verificar) || $id_user == 1){
+                $this->views->getView($this, "historial_ventas");
+            }else{
+                header('Location: '.base_url.'Errors/permisos');
+            }
         }
 
         public function buscarCodigo($cod){
@@ -77,21 +94,29 @@
             $cantidad = $_POST['cantidad'];
             $comprobar = $this->model->consultarDetalle('detalle_temp', $id_producto, $id_usuario);
             if(empty($comprobar)){
-                $sub_total = $precio * $cantidad;
-                $data = $this->model->registrarDetalle('detalle_temp', $id_producto, $id_usuario, $precio, $cantidad, $sub_total);
-                if($data == "Ok"){
-                    $msg = array('msg' => 'Producto ingresado a la venta!', 'icono' => 'success');
+                if($datos['cantidad'] >= $cantidad){
+                    $sub_total = $precio * $cantidad;
+                    $data = $this->model->registrarDetalle('detalle_temp', $id_producto, $id_usuario, $precio, $cantidad, $sub_total);
+                    if($data == "Ok"){
+                        $msg = array('msg' => 'Producto ingresado a la venta!', 'icono' => 'success');
+                    }else{
+                        $msg = array('msg' => 'Error al ingresar el producto a la venta!', 'icono' => 'error');
+                    }
                 }else{
-                    $msg = array('msg' => 'Error al ingresar el producto a la venta!', 'icono' => 'error');
+                    $msg = array('msg' => 'Stock no disponible: '.$datos['cantidad'], 'icono' => 'warning');
                 }
             }else{
                 $total_cantidad = $comprobar['cantidad'] + $cantidad;
                 $sub_total = $total_cantidad * $precio;
-                $data = $this->model->actualizarDetalle('detalle_temp', $precio, $total_cantidad, $sub_total, $id_producto, $id_usuario);
-                if($data == "Modificado"){
-                    $msg = array('msg' => 'Producto actualizado!', 'icono' => 'success');
+                if($datos['cantidad'] < $total_cantidad){
+                    $msg = array('msg' => 'Stock no disponible!', 'icono' => 'warning');
                 }else{
-                    $msg = array('msg' => 'Error al actualizar el producto!', 'icono' => 'error');
+                    $data = $this->model->actualizarDetalle('detalle_temp', $precio, $total_cantidad, $sub_total, $id_producto, $id_usuario);
+                    if($data == "Modificado"){
+                        $msg = array('msg' => 'Producto actualizado!', 'icono' => 'success');
+                    }else{
+                        $msg = array('msg' => 'Error al actualizar el producto!', 'icono' => 'error');
+                    }
                 }
             }
             echo json_encode($msg, JSON_UNESCAPED_UNICODE);

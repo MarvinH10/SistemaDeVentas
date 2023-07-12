@@ -11,8 +11,7 @@
         public function index(){
             
             $id_user = $_SESSION['id_usuario'];
-            $model = new CajasModel();
-            $verificar = $model->verificarPermiso($id_user, 'caja');
+            $verificar = $this->model->verificarPermiso($id_user, 'cajas');
             if(!empty($verificar) || $id_user == 1){
                 $this->views->getView($this, "index");
             }else{

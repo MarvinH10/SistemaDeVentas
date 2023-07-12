@@ -7,10 +7,12 @@ function formLogin(e){
         clave.classList.remove("is-invalid");    
         usuario.classList.add("is-invalid");
         usuario.focus();
+        swal("Oops", "Por favor, ingresa el usuario", "warning");
     }else if(clave.value == ""){
         usuario.classList.remove("is-invalid");
         clave.classList.add("is-invalid");
         clave.focus();
+        swal("Oops", "Por favor, ingresa la contraseña", "warning");
     }else{
         const url = base_url + "Usuarios/validar";
         const form = document.getElementById("formLogin");
@@ -23,10 +25,18 @@ function formLogin(e){
                 if(res == "Ok"){
                     window.location = base_url + "Administracion/home";
                 }else{
-                    document.getElementById("alerta").classList.remove("d-none");
-                    document.getElementById("alerta").innerHTML = res;
+                    alertas(res.mensaje, res.icono);
                 }
             }
         }
     }
+}
+function alertas(mensaje, icono){
+    swal({
+        position: 'top-end',
+        icon: icono,
+        title: mensaje,
+        showConfirmButton: false,
+        timer: 3000
+    })
 }

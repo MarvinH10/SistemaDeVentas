@@ -10,7 +10,6 @@
     <title>Iniciar Sesión</title>
     <link rel="stylesheet" href="<?php echo base_url; ?>Assets/css/logreg-styles.css">
     <link rel="stylesheet" href="<?php echo base_url; ?>Assets/css/botones.css">
-    <script src="<?php echo base_url; ?>Assets/js/all.min.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -20,14 +19,17 @@
             <form id="formLogin">
                 <div class="input-box">
                     <span class="icon"><ion-icon name="person"></ion-icon></span>
-                    <input class="form-control py-4" id="usuario" name="usuario" type="text" required />
+                    <input class="form-control py-4" id="usuario" name="usuario" type="text" required>
                     <label>Usuario</label>
                 </div>
                 <div class="input-box">
                     <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
-                    <input class="form-control py-4" id="clave" name="clave" type="password" required />
+                    <input class="form-control py-4" id="clave" name="clave" type="password" required>
                     <label>Contraseña</label>
                 </div>
+                <div class="forgetpassword">
+                    <a class="forgotstyle" href="restablecer.php">Olvidé mi contraseña</a>
+                </div><br>
                 <div class="contenedor">
                     <div class="contenedor-botones">
                         <button class="boton dos" type="submit" onclick="formLogin(event);"><span>Entrar</span></button>
@@ -36,7 +38,9 @@
             </form>
         </div>
     </div>
+    <script src="<?php echo base_url; ?>Assets/js/all.min.js" crossorigin="anonymous"></script>
     <script src="<?php echo base_url; ?>Assets/js/login.js"></script>
+    <script src="<?php echo base_url; ?>Assets/js/sweetalert.min.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script>

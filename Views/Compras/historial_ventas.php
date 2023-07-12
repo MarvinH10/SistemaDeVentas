@@ -11,7 +11,7 @@
                         <th>Id</th>
                         <th>Clientes</th>
                         <th>Total</th>
-                        <th>Fecha Compra</th>
+                        <th>Fecha Venta</th>
                         <th>Estado</th>
                         <th>Acciones</th>
                     </tr>

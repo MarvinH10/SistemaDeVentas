@@ -10,8 +10,7 @@ class Administracion extends Controller{
     
     public function index(){
         $id_user = $_SESSION['id_usuario'];
-        $model = new AdministracionModel();
-        $verificar = $model->verificarPermiso($id_user, 'configuracion');
+        $verificar = $this->model->verificarPermiso($id_user, 'configuracion');
         if(!empty($verificar) || $id_user == 1){
             $data = $this->model->getEmpresa();
             $this->views->getView($this, "index", $data);
@@ -28,7 +27,7 @@ class Administracion extends Controller{
         $data['categorias'] = $this->model->getDatos('categorias');
         $data['medidas'] = $this->model->getDatos('medidas');
         $data['ventas'] = $this->model->getVentas('estado');
-        $data['compras'] = $this->model->getCompras();
+        $data['compras'] = $this->model->getCompras('estado');
         $this->views->getView($this, "home", $data);
     }
 

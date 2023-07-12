@@ -10,8 +10,7 @@
 
         public function index(){
             $id_user = $_SESSION['id_usuario'];
-            $model = new ClientesModel();
-            $verificar = $model->verificarPermiso($id_user, 'clientes');
+            $verificar = $this->model->verificarPermiso($id_user, 'clientes');
             if(!empty($verificar) || $id_user == 1){
                 $this->views->getView($this, "index");
             }else{
@@ -41,8 +40,7 @@
 
         public function registrar(){
             $id_user = $_SESSION['id_usuario'];
-            $model = new ClientesModel();
-            $verificar = $model->verificarPermiso($id_user, 'registrar_clientes');
+            $verificar = $this->model->verificarPermiso($id_user, 'registrar_clientes');
             if(!empty($verificar) || $id_user == 1){
                 $dni = $_POST['dni'];
                 $nombre = $_POST['nombre'];

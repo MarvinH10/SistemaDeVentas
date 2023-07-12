@@ -7,8 +7,7 @@
 
         public function index(){
             $id_user = $_SESSION['id_usuario'];
-            $model = new UsuariosModel();
-            $verificar = $model->verificarPermiso($id_user, 'usuarios');
+            $verificar = $this->model->verificarPermiso($id_user, 'usuarios');
             if(!empty($verificar) || $id_user == 1){
                 if(empty($_SESSION['activo'])){
                     header("location: ".base_url);
@@ -64,7 +63,7 @@
 
                     $msg = "Ok";
                 }else{
-                    $msg = "Usuario/contraseña incorrecta";
+                    $msg = array('mensaje' => 'Usuario/contraseña incorrecta', 'icono' => 'warning');
                 }
             }
             echo json_encode($msg, JSON_UNESCAPED_UNICODE);

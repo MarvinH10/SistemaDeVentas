@@ -9,10 +9,10 @@ body{
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: #abbaab;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #ffffff, #abbaab);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #ffffff, #abbaab); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    }
+    background: #e2e2e2;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #a5a5a5, #e2e2e2); 
+    background: linear-gradient(to right, #a5a5a5, #e2e2e2);
+}
 .wrapper{
     position: relative;
     width: 400px;
@@ -36,6 +36,14 @@ body{
     font-weight: 900;
     text-shadow: 0 0 10px rgb(255, 255, 255);
     text-align: center;
+}
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px transparent inset;
+    transition: background-color 5000s ease-in-out 0s;
+}
+input:-webkit-autofill~label,
+input:-webkit-autofill~label{
+    top: 5px;
 }
 .input-box{
     position: relative;
@@ -76,4 +84,20 @@ body{
     font-size: 1.2em;
     color: #000000;
     line-height: 57px;
+}
+.forgetpassword{
+    position: relative;
+    font-size: 0.9em;
+    text-align: left;
+}
+.forgotstyle{
+    color: rgb(102, 102, 102);
+    text-decoration: none;
+    font-style: italic;
+    transition: all 0.3s ease;
+    text-shadow: 0 0 8px rgb(58, 58, 58);
+}
+.forgotstyle:hover{
+    text-shadow: 2px 2px 5px white;
+    color: white;
 }
